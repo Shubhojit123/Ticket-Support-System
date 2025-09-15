@@ -18,7 +18,6 @@ function TicketDetails() {
   const [commentText, setCommentText] = useState("")
   const { addComment, getAllTickets, datas, setData, isTablet } = useContext(TicketContext)
 
-  // Get ticket by id
   function byId(id) {
     const ticket = datas.find(d => d.id == id)
     setIdData(ticket)
@@ -53,7 +52,7 @@ function TicketDetails() {
   return (
     <>
       {contextHolder}
-      <div className="flex flex-col-reverse md:flex-row w-full h-full min-h-screen gap-4 p-2 bg-gray-100 ">
+      <div className="flex flex-col-reverse md:flex-row w-full h-full min-h-screen gap-4 fixed bg-gray-100 ">
 
         <div className="w-full sm:w-[50%] md:w-[40%] lg:w-[25%] h-[60vh] md:h-auto border border-gray-100 rounded-md overflow-auto hidden md:block ">
           <Comments data={idData} />

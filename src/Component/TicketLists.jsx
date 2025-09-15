@@ -140,7 +140,7 @@ function TicketLists() {
                     onSearch={(value) => setSearch(value.toLowerCase())} enterButton allowClear />
             </div>
             <div className="w-[96%] h-[73vh] mt-4 bg-white  flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
-                <Table dataSource={filterData} className="cursor-pointer" scroll={{ x: "max-content" }} columns={columns} rowKey="id" pagination={{ pageSize: 4 }} style={{ width: "100%", height: "100%" }} onRow={(record) => ({
+                <Table dataSource={filterData} className="cursor-pointer" scroll={{ x: "max-content" }} columns={columns} rowKey="id" pagination={{ pageSize: 6 }} style={{ width: "100%", height: "100%" }} onRow={(record) => ({
                     onClick: () => navigate(`/ticket/${record.id}`),
                 })} />
             </div>
