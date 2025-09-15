@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { TicketContext } from './ContextApi'
-import { Avatar, Dropdown, Input, Space, Tag, Tooltip, Select } from 'antd';
+import { Avatar, Dropdown, Input, Space, Tag, Tooltip, Select, message } from 'antd';
 import { FaUser } from "react-icons/fa";
 import { MdDescription } from "react-icons/md";
 import { useNavigate } from 'react-router';
@@ -10,6 +10,8 @@ import { GoInbox } from "react-icons/go";
 const { Option } = Select;
 
 function CardView() {
+      const [messageApi, contextHolder] = message.useMessage()
+
     const { getAllTickets, datas, getPriorityColor, getStatusIcon, updateStatus } = useContext(TicketContext);
     useEffect(() => {
         getAllTickets();
@@ -76,6 +78,7 @@ function CardView() {
     const navigate = useNavigate();
     return (
         <div className='w-[100%] h-[80vh] flex flex-col gap-4 '>
+            {contextHolder}
             <div className='w-[100%] p-4 shadow-md border border-gray-300 rounded flex flex-row justify-between gap-2 flex-wrap'>
                 <Input
                     placeholder="Search"
@@ -113,7 +116,7 @@ function CardView() {
                     <p className='font-semibold text-gray-600'>No Data</p>
                     </div>}
 
-                {filterData?.map((data, idx) => {
+                {filterData?.reverse().map((data, idx) => {
                     const items = [
                         {
                             key: '1',
@@ -142,7 +145,7 @@ function CardView() {
                             <div className='w-[100%] flex flex-col gap-3'>
                                 <div className='flex flex-row gap-2 justify-between items-center '>
                                     <div className='flex flex-row gap-2  justify-between items-center '>
-                                        <Avatar src={`https://ui-avatars.com/api/?name=${data.name || "John"}&background=random&color=fff`} />
+                                        
                                         <p className='text-xs font-semibold flex flex-row gap-1 items-center'><FaUser />{data.name}</p>
                                     </div>
                                     <div>
@@ -151,7 +154,7 @@ function CardView() {
                                 </div>
                                 <div className=' w-[100%] flex flex-row justify-between'>
                                     <div>
-                                        <Tooltip title={data.id}><Tag className='cursor-pointer'>#{data.id.substring(0, 6)}</Tag></Tooltip>
+                                        <Tooltip title={data.id}><Tag className='cursor-pointer' onClick={async () => { await navigator.clipboard.writeText(data.id);messageApi.success("ID Copied")}}>#{data.id.substring(0, 6)}</Tag></Tooltip>
                                         <p className='flex flex-row gap-1 py-3 text-xs'><MdDescription />{" "}{data.desc.length > 10 ? data.desc.substring(0, 10) + "..." : data.desc}</p>
                                     </div>
                                     <div className='flex flex-col justify-between items-end'>

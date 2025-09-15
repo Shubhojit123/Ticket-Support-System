@@ -49,7 +49,7 @@ function Dashboard() {
             </div>
 
 
-            <div className='mx-4'>
+            <div className='mx-4 hidden md:block'>
               <Segmented
                 options={[
                   { value: 'List', icon: <BarsOutlined /> },
@@ -59,6 +59,7 @@ function Dashboard() {
                 onChange={(val) => handelKanban(val)}
               />
             </div>
+
 
            <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center py-2 px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
             <p><IoMdAdd /></p><p>Add</p></p>

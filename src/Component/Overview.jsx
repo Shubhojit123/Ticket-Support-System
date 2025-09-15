@@ -79,7 +79,7 @@ function Overview({ data }) {
 
       
         
-          <p className='text-xl font-semibold flex items-center justify-center gap-1 text-blue-600 cursor-pointer' onClick={() => setCommentDrawerOpen(true)}>
+          <p className='text-xl font-semibold flex items-center justify-center gap-1 text-blue-600 cursor-pointer block md:hidden' onClick={() => setCommentDrawerOpen(true)}>
             <p><CommentOutlined/></p><p>({data.comments.length})</p></p>
           <Drawer
             title="Comments"
