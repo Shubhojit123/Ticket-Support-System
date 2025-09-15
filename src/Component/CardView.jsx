@@ -11,6 +11,13 @@ const { Option } = Select;
 
 function CardView() {
     const [messageApi, contextHolder] = message.useMessage()
+    const [isMobile, setMobile] = useState(window.innerWidth < 426);
+
+    useEffect(() => {
+        const handleResize = () => setIsTablet(window.innerWidth < 426);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [])
 
     const { getAllTickets, datas, getPriorityColor, getStatusIcon, updateStatus } = useContext(TicketContext);
     useEffect(() => {
@@ -73,7 +80,7 @@ function CardView() {
                     />
                 </div>
 
-                <div className='flex flex-row w-[100%] md:w-[55%]  items-center justify-between'>
+                <div className='flex flex-row w-[100%] md:w-[55%]  items-center justify-evenly'>
                     <Select
                         placeholder="Select Priority"
                         allowClear
@@ -129,7 +136,8 @@ function CardView() {
                     ];
 
                     return (
-                        <div className='w-[100%] p-4 shadow-md flex flex-row border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 duration-200' key={idx} onDoubleClick={() => navigate(`/ticket/${data.id}`)}>
+                    <div className='w-[100%] p-4 shadow-md flex flex-row border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 duration-200' key={idx}  onClick={isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}
+                        onDoubleClick={!isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}>
                             <div className='w-[100%] flex flex-col gap-3'>
                                 <div className='flex flex-row gap-2 justify-between items-center '>
                                     <div className='flex flex-row gap-2  justify-between items-center '>

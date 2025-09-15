@@ -16,6 +16,7 @@ import { TicketContext } from '../Component/ContextApi';
 import CardView from '../Component/CardView';
 import { IoMdAdd } from 'react-icons/io';
 import { FaChartPie } from 'react-icons/fa';
+import { FaWpforms } from "react-icons/fa";
 
 function Dashboard() {
 
@@ -78,7 +79,7 @@ function Dashboard() {
       <Drawer
         closable
         destroyOnHidden
-        title={<p>Ticket Form</p>}
+        title={<p className='flex flex-row gap-2 items-center  font-semibold'><p className='p-2 bg-blue-100 text-blue-600 rounded-lg '><FaWpforms/></p><p>Ticket Form</p></p>}
         placement="right"
         open={open}
         width={500}
