@@ -5,6 +5,7 @@ import { FaUser } from "react-icons/fa";
 import { MdDescription } from "react-icons/md";
 import { useNavigate } from 'react-router';
 import { DownOutlined } from '@ant-design/icons';
+import { GoInbox } from "react-icons/go";
 
 const { Option } = Select;
 
@@ -27,23 +28,20 @@ function CardView() {
         setFiltedData(datas);
     }, [datas])
 
-    function filter(data, field, value,subValue="") {
+    function filter(data, field, value,subField = "",subValue="") {
         if (!value && !subValue || priority !== "" && status !== "") {
             setFiltedData(data);
             return;
         }
 
-        if (field === "search") {
+        if (field == "search") {
             const lowerValue = value?.toLowerCase?.() || "";
-            if (!lowerValue.trim()) {
-                setFiltedData(data);
-                return;
-            }
             const res = data.filter(
                 item =>
                     item.title?.toLowerCase().includes(lowerValue) ||
                     item.name?.toLowerCase().includes(lowerValue)
             );
+            console.log(res)
             setFiltedData(res);
             return;
         }
@@ -69,7 +67,6 @@ function CardView() {
 
 
     function handelSearch(e) {
-        e.preventDefault();
         filter(datas, "search", e.target.value);
     }
 
@@ -83,7 +80,8 @@ function CardView() {
                 <Input
                     placeholder="Search"
                     onChange={(e) => handelSearch(e)}
-                    className="md:max-w-[150px] "
+                    className="md:w-[150px] "
+                    allowClear
                 />
 
                 <Select
@@ -110,6 +108,11 @@ function CardView() {
                 </Select>
             </div>
             <div className='w-[100%]  overflow-y-auto flex flex-col gap-3 max-h-[75vh] '>
+                {filterData.length < 1 && <div className='flex justify-center items-center h-[50vh] flex-col gap-4 '>
+                    <p className='text-7xl text-gray-600 '><GoInbox/></p>
+                    <p>No Data</p>
+                    </div>}
+
                 {filterData?.map((data, idx) => {
                     const items = [
                         {
