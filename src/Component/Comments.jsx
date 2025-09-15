@@ -40,13 +40,6 @@ function Comments({ data }) {
         
         <div className='w-[100%] h-[100%] p-2 flex flex-col gap-2'>
             {contextHolder}
-            <button
-                onClick={() => navigate(-1)}
-                className='p-1 text-blue-600 cursor-pointer flex flex-row items-center gap-2  rounded-lg text-xs font-semibold hover:text-blue-800 duration-300'
-            >
-                <FaArrowLeft />
-                <span>Back</span>
-            </button>
             <div className='bg-white border-b border-slate-200 p-4 flex items-center gap-3 shadow-sm rounded-md'>
                 <div className='p-2 bg-blue-100 rounded-lg'>
                     <MessageCircle className='w-5 h-5 text-blue-600' />

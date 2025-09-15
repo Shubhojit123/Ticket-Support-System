@@ -9,6 +9,7 @@ import { IoCheckmarkCircleSharp } from 'react-icons/io5'
 import { BsCircleHalf } from "react-icons/bs"
 import Comments from './Comments'
 import { FaCommentDots } from "react-icons/fa6"
+import { GoInbox } from 'react-icons/go'
 
 function Dragable() {
     const { addComment, isTablet } = useContext(TicketContext)
@@ -138,11 +139,19 @@ function Dragable() {
 
     const container = ["Open", "Processing", "Completed"]
 
+
+
+
     return (
         <div className='h-[80vh] w-full flex flex-col items-center'>
-            {contextHolder}
+            {datas.length < 1 && 
+            <div className='flex justify-center items-center h-[50vh] flex-col gap-4 '>
+                 <p className='text-7xl text-gray-600 '><GoInbox /></p>
+                <p className='font-semibold text-gray-600'>No Data</p>
+            </div>}
+        { contextHolder }
 
-            {/* <div className="w-[96%] mt-4 bg-white flex flex-col md:flex-row rounded-lg shadow-sm hidden md:block">
+{/* <div className="w-[96%] mt-4 bg-white flex flex-col md:flex-row rounded-lg shadow-sm hidden md:block">
                 {container.map((item, idx) => (
                     <div key={idx} className={`text-center font-semibold text-lg md:text-xl w-full p-3 ${getBgByItem(item)}`}>
                         {item}
@@ -151,15 +160,15 @@ function Dragable() {
             </div> */}
 
             <div className="flex flex-col md:flex-row w-[96%] gap-4 mt-4">
-                {container.map((item) => (
+                {datas.length > 1 && container.map((item) => (
                     <div
                         key={item}
                         className={`w-full md:w-1/3 mb-1 h-[75vh] p-4 overflow-auto flex flex-col gap-3 rounded-md ${getBgByItem(item)}`}
                         onDragOver={handelDragover}
                         onDrop={() => handelDrop(item)}
                     >
-                       <div className='flex items-center justify-center text-xl font-semibold '>{item}</div>
-                        
+                        <div className='flex items-center justify-center text-xl font-semibold '>{item}</div>
+
                         {getCol(item).map((data, idx) => (
                             <div
                                 key={idx}
@@ -235,7 +244,7 @@ function Dragable() {
             >
                 <Comments data={drawerData} />
             </Drawer>
-        </div>
+        </div >
     )
 }
 

@@ -1,31 +1,31 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { FaUser } from "react-icons/fa6";
-import { TicketContext } from './ContextApi';
-import { DownOutlined, SettingOutlined } from '@ant-design/icons';
-import { Dropdown, Space } from 'antd';
-import { useNavigate } from 'react-router';
-
-
-
+import React, { useContext, useState } from 'react'
+import { FaUser } from "react-icons/fa6"
+import { TicketContext } from './ContextApi'
+import { CommentOutlined, DownOutlined } from '@ant-design/icons'
+import { Dropdown, Space, Drawer, Button } from 'antd'
+import Comments from './Comments'
 
 function Overview({ data }) {
-  const { getPriorityColor, getStatusIcon,updateStatus,isTablet } = useContext(TicketContext);
-  const allStatuses = ["Open", "Completed", "Processing"];
-
-  const navigate = useNavigate("");
-
+  const { getPriorityColor, getStatusIcon, updateStatus, isTablet } = useContext(TicketContext)
+  const allStatuses = ["Open", "Completed", "Processing"]
+  const [commentDrawerOpen, setCommentDrawerOpen] = useState(false)
 
   const items = [
     {
       key: '1',
-      label: <p className='flex flex-row gap-2 text-xs font-semibold'>{getStatusIcon(data.status)}{data.status}</p>,
+      label: (
+        <p className='flex flex-row gap-2 text-xs font-semibold'>
+          {getStatusIcon(data.status)}
+          {data.status}
+        </p>
+      ),
       disabled: true,
     },
     {
       type: 'divider',
     },
-
-    ...allStatuses.filter((status) => status != data.status)
+    ...allStatuses
+      .filter((status) => status !== data.status)
       .map((status, idx) => ({
         key: `status-${idx}`,
         label: (
@@ -36,47 +36,62 @@ function Overview({ data }) {
         ),
         value: status
       })),
-  ];
+  ]
 
   function handelChangeStatus(e) {
-    console.log(items[0],e.key)
-    const selected = items.find((item)=>item.key == e.key);
-    updateStatus(data.id,selected.value)
-    
+    const selected = items.find((item) => item.key == e.key)
+    updateStatus(data.id, selected.value)
   }
+
   return (
-    <div className='h-[60vh] w-[100%] p-4 '>
-      <div className='w-[100%] p-6  flex flex-row gap-3 rounded-md'>
-      
-        <div className='flex flex-row gap-3 items-center'>
-          <p><FaUser /></p>
-          <p>{data.name}</p>
-        </div>
-        <div>
-          <p className={`text-xs px-2 py-1 font-medium border rounded-lg ${getPriorityColor(data.priority)}`}>{data.priority}</p>
+    <div className='w-full h-full flex flex-col gap-4 p-2 md:p-4'>
 
+      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 w-full p-4 bg-white rounded-md shadow-sm'>
+        <div className='flex items-center gap-3'>
+          <FaUser />
+          <p className='text-sm sm:text-base font-medium'>{data.name}</p>
         </div>
-      </div>
-      <div className='w-[100%] p-6 flex flex-row gap-3 rounded-md justify-between'>
-        <p className='flex flex-row gap-3 items-center min-w[40%]'>{getStatusIcon(data.status)}{data.status}</p>
-        <p>
-          <Dropdown menu={{ items, onClick: handelChangeStatus }} >
-
-            <a onClick={e => e.preventDefault()}>
-              <Space>
-                Change Status
-                <DownOutlined />
-              </Space>
-            </a>
-          </Dropdown>
+        <p className={`text-xs sm:text-sm px-2 py-1 font-medium border rounded-lg ${getPriorityColor(data.priority)}`}>
+          {data.priority}
         </p>
+      </div>
 
+      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 w-full p-4 bg-white rounded-md shadow-sm'>
+        <p className='flex items-center gap-2 text-sm sm:text-base'>
+          {getStatusIcon(data.status)} {data.status}
+        </p>
+        <Dropdown menu={{ items, onClick: handelChangeStatus }}>
+          <a onClick={e => e.preventDefault()}>
+            <Space className='text-sm sm:text-base cursor-pointer'>
+              Change Status <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
       </div>
-      <div className='w-[100%] p-6 shadow-md flex flex-col gap-3 rounded-md'>
-        <p className={`md:text-xs text-lg font-semibold`}>Description</p>
-        <p className='text-xs font-medium text-gray-600'>{data.desc}</p>
+
+      <div className='w-full p-4 bg-white rounded-md shadow-sm flex flex-col gap-2 max-h-[45vh] overflow-auto'>
+        <p className='text-base sm:text-lg font-semibold break-words'>Description</p>
+        <p className='text-xs sm:text-sm text-gray-600 break-words whitespace-pre-wrap'>
+          {data.desc}
+        </p>
       </div>
+
+
       
+        
+          <p className='text-xl font-semibold flex items-center justify-center gap-1 text-blue-600 cursor-pointer' onClick={() => setCommentDrawerOpen(true)}>
+            <p><CommentOutlined/></p><p>({data.comments.length})</p></p>
+          <Drawer
+            title="Comments"
+            placement="right"
+            open={commentDrawerOpen}
+            onClose={() => setCommentDrawerOpen(false)}
+            width={300}
+          >
+            <Comments data={data} />
+          </Drawer>
+    
+
     </div>
   )
 }

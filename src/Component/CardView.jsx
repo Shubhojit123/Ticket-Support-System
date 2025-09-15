@@ -76,7 +76,7 @@ function CardView() {
     const navigate = useNavigate();
     return (
         <div className='w-[100%] h-[80vh] flex flex-col gap-4 '>
-            <div className='w-[100%] p-4 shadow-md border border-gray-300 rounded flex flex-row justify-between'>
+            <div className='w-[100%] p-4 shadow-md border border-gray-300 rounded flex flex-row justify-between gap-2 flex-wrap'>
                 <Input
                     placeholder="Search"
                     onChange={(e) => handelSearch(e)}
@@ -110,7 +110,7 @@ function CardView() {
             <div className='w-[100%]  overflow-y-auto flex flex-col gap-3 max-h-[75vh] '>
                 {filterData.length < 1 && <div className='flex justify-center items-center h-[50vh] flex-col gap-4 '>
                     <p className='text-7xl text-gray-600 '><GoInbox/></p>
-                    <p>No Data</p>
+                    <p className='font-semibold text-gray-600'>No Data</p>
                     </div>}
 
                 {filterData?.map((data, idx) => {
