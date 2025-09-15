@@ -5,6 +5,8 @@ import { FaRegCircle } from "react-icons/fa";
 import { PiCircleHalfFill } from "react-icons/pi";
 import { GoCheckCircleFill } from "react-icons/go";
 import { FaChartPie } from "react-icons/fa";
+import { Pie } from "react-chartjs-2";
+import { Progress } from "antd";
 
 function DashBoardView() {
   const { getAllTickets, datas, getPriorityColor } = useContext(TicketContext);
@@ -14,10 +16,12 @@ function DashBoardView() {
   const [totalHigh, setTotalHigh] = useState([]);
   const [totalLow, setTotalLow] = useState([]);
   const [totalMedium, setTotalMedium] = useState([]);
+  const[totalCompleteRate,setTotalCompleteRate] = useState("");
 
   useEffect(() => {
     getAllTickets();
   }, []);
+
 
   useEffect(() => {
     try {
@@ -47,8 +51,22 @@ function DashBoardView() {
     }
   }, [datas]);
 
+  useEffect(()=>{
+    try {
+     if(datas.length > 1)
+     {
+        const cal = (totalComplete.length/datas.length)*100;
+        setTotalCompleteRate(cal.toFixed(0));
+     }
+    } catch (error) {
+      console.log(error);
+    }
+  },[datas,totalComplete])
+
+
+
   return (
-    <div className="h-[90vh] w-full flex flex-col gap-4">
+    <div className="h-[80vh] w-full flex flex-col gap-4 overflow-hidden">
      
 
       <div className="flex flex-col gap-3">
@@ -89,6 +107,12 @@ function DashBoardView() {
             <GoCheckCircleFill className="text-green-400" />
             <span>Total Completed ({totalComplete.length})</span>
           </p>
+        </div>
+        <div className="flex items-center justify-center  border-md shadow-md ">
+            <div className="flex flex-col gap-3 w-[100%]  justify-center items-center p-4 ">
+              <p className="text-green-600">Completion Rate</p>
+              <Progress type="circle" percent={totalCompleteRate}/>
+            </div>
         </div>
       </div>
     </div>
