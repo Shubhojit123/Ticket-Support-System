@@ -79,8 +79,8 @@ function Overview({ data }) {
 
       
         
-          <p className='text-xl font-semibold flex items-center justify-center gap-1 text-blue-600 cursor-pointer block md:hidden' onClick={() => setCommentDrawerOpen(true)}>
-            <p><CommentOutlined/></p><p>({data.comments.length})</p></p>
+          <p className='text-xl font-semibold flex items-center justify-center gap-1 text-blue-600 cursor-pointer block md:hidden z-10' onClick={() => setCommentDrawerOpen(true)}>
+            <p><CommentOutlined className="absolute text-2xl"/></p><p className="relative text-xs -z-50 ml-3 mt-0.5 h-5 w-5  rounded-full flex justify-center items-center bg-blue-50">{data.comments.length}</p></p>
           <Drawer
             title="Comments"
             placement="right"

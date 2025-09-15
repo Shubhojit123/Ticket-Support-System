@@ -5,12 +5,13 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import { TicketContext } from './ContextApi';
-import { Input } from 'antd';
+import { Input, message } from 'antd';
 import { MdBackHand } from 'react-icons/md';
 
 const { TextArea } = Input;
 
 function TicketForm() {
+    const [messageApi, contextHolder] = message.useMessage()
     const { getAllTickets } = useContext(TicketContext);
 
     useEffect(() => {
@@ -40,22 +41,22 @@ function TicketForm() {
             const nameTrim = name.trim();
 
             if (!nameTrim) {
-                toast.info("Please enter Name");
+                messageApi.info("Please enter Name");
                 nameRef.current.focus();
                 return;
             }
             if (!titleTrim) {
-                toast.info("Please enter Title");
+                messageApi.info("Please enter Title");
                 titleRef.current.focus();
                 return;
             }
             if (!descTrim) {
-                toast.info("Please enter Description");
+                messageApi.info("Please enter Description");
                 descRef.current.focus();
                 return;
             }
             if (!optionTrim) {
-                toast.info("Please select Priority");
+                messageApi.info("Please select Priority");
                 optionRef.current.focus();
                 return;
             }
@@ -76,7 +77,7 @@ function TicketForm() {
 
             oldTicket.push(payLoad);
             localStorage.setItem(STORAGE, JSON.stringify(oldTicket));
-            toast.success("We will contact Soon");
+            messageApi.success("We will contact Soon");
             idShow.current.style.display = "block";
 
             setTitle("");
@@ -99,6 +100,7 @@ function TicketForm() {
 
     return (
         <>
+            {contextHolder}
             <div className='h-full w-full p-4 flex flex-col gap-3'>
                 <div className='h-10 w-full flex rounded-sm text-blue-600 text-xl font-semibold items-center justify-center flex-row gap-1'>
                     <p><MdBackHand /></p>
@@ -187,9 +189,9 @@ function TicketForm() {
                        <div className=' w-[100%] flex justify-center'>
                              <button
                             type="submit"
-                            className="py-2 px-2  flex flex-row items-center text-xs font-bold rounded-lg text-blue-600 bg-blue-100 cursor-pointer hover:bg-blue-200 duration-200 ">
-                            <p className='p-3 group-hover:text-gray-50'>Create Ticket</p>
-                            <p className='p-2 scale-150 group-hover:text-gray-50'><IoIosSend /></p>
+                            className="py-2 px-2  flex flex-row items-center text-xs font-bold rounded-lg text-blue-600 bg-blue-100 cursor-pointer hover:bg-blue-200 duration-200 w-[100%] justify-center gap-4 ">
+                            <p className='p-3 group-hover:text-gray-50 scale-135'>Create Ticket</p>
+                            <p className='p-2 scale-250 group-hover:text-gray-50 '><IoIosSend /></p>
                         </button>
                        </div>
                     </form>

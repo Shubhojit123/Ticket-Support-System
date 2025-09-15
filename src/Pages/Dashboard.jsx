@@ -10,11 +10,12 @@ import logo from "../assets/logo.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../Redux/Slice";
 import { Segmented } from 'antd';
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, BarsOutlined, MenuOutlined } from '@ant-design/icons';
 import DashBoardView from '../Component/DashBoardView';
 import { TicketContext } from '../Component/ContextApi';
 import CardView from '../Component/CardView';
 import { IoMdAdd } from 'react-icons/io';
+import { FaChartPie } from 'react-icons/fa';
 
 function Dashboard() {
 
@@ -22,9 +23,10 @@ function Dashboard() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false)
   const [kanban, setKanban] = useState()
-  const {isTablet} = useContext(TicketContext);
+  const { isTablet } = useContext(TicketContext);
   const kanbanValue = useSelector((state) => state.kanban.value);
   const dispatch = useDispatch();
+  const [menuOpen, setMenuOpen] = useState(false)
 
 
   function handelKanban(val) {
@@ -37,41 +39,40 @@ function Dashboard() {
 
       <div className="w-full h-screen flex flex-col md:flex-row">
 
-        <div className="w-[100%] h-[15vh] md:w-[25%] md:h-[100vh] border-r border-gray-100 p-6">
-          <DashBoardView />
-        </div>
 
-        <div className=" w-[100%] md:w-[80%] h-[100vh] bg-gray-100 p-4 flex flex-col gap-5">
+        <div className=" w-[100%] h-[100vh] bg-gray-100 p-4 flex flex-col gap-5">
           <div className="w-full h-16 bg-white shadow-md rounded-lg px-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <img src={logo} className='w-9 h-9 hidden md:block' />
+            <div className="flex items-center gap-4" onClick={() => setMenuOpen(true)}>
+              <MenuOutlined className='cursor-pointer' />
+              <img src={logo} className='w-9 h-9 ' />
               <h1 className="md:text-lg font-semibold text-gray-700 sm:text-sm">Ticketing</h1>
             </div>
 
 
-            <div className='mx-4 hidden md:block'>
-              <Segmented
-                options={[
-                  { value: 'List', icon: <BarsOutlined /> },
-                  { value: 'Kanban', icon: <AppstoreOutlined /> },
-                ]}
-                value={kanban}
-                onChange={(val) => handelKanban(val)}
-              />
+            <div className='flex flex-row items-center gap-5'>
+              <div className='mx-4 hidden md:block'>
+                <Segmented
+                  options={[
+                    { value: 'List', icon: <BarsOutlined /> },
+                    { value: 'Kanban', icon: <AppstoreOutlined /> },
+                  ]}
+                  value={kanban}
+                  onChange={(val) => handelKanban(val)}
+                />
+              </div>
+
+
+              <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center py-2 px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
+                <p><IoMdAdd /></p><p>Add</p></p>
             </div>
-
-
-           <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center py-2 px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
-            <p><IoMdAdd /></p><p>Add</p></p>
 
           </div>
 
           <div className="flex flex-col justify-center items-center ">
-            {kanban == "Kanban" ? <Dragable /> : isTablet ? <CardView/> : <TicketLists />}
+            {kanban == "Kanban" ? <Dragable /> : isTablet ? <CardView /> : <TicketLists />}
           </div>
         </div>
       </div>
-
 
 
       <Drawer
@@ -86,8 +87,25 @@ function Dashboard() {
         <div className='w-[100%] h-[100%] '>
           <TicketForm />
         </div>
+      </Drawer>
 
-
+      <Drawer
+        closable
+        destroyOnHidden
+        title={<div className="w-full flex items-start justify-between ">
+          <p className="flex flex-row justify-start gap-3 items-center font-semibold text-gray-700  w-[100%]">
+            <span className=" text-blue-600 p-2 rounded-md">
+              <FaChartPie className=' bg-blue-200 p-1 text-blue-600 scale-190 rounded-md' />
+            </span>
+            <span>Overview</span>
+          </p>
+        </div>}
+        open={menuOpen}
+        width={400}
+        onClose={() => setMenuOpen(false)}
+        placement='left'
+      >
+        <DashBoardView />
       </Drawer>
 
     </>

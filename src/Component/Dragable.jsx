@@ -172,13 +172,13 @@ function Dragable() {
                         {getCol(item).map((data, idx) => (
                             <div
                                 key={idx}
-                                className="w-full min-h-[180px] border border-gray-200 shadow-md bg-white rounded-lg flex flex-col gap-3 cursor-move p-3"
+                                className="w-full min-h-[260px] border border-gray-200 shadow-md bg-white rounded-lg flex flex-col gap-3 cursor-move p-3"
                                 draggable
                                 onDragStart={(e) => handelDragStart(e, data.id, data.status)}
                                 onDragEnd={handelDragEnd}
                                 onDoubleClick={() => navigate(`/ticket/${data.id}`)}
                             >
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between lg:items-center flex-col gap-1.5 lg:gap-0 lg:flex-row items-start ">
                                     <Tooltip title={data.name}>
                                         <img
                                             src={`https://ui-avatars.com/api/?name=${data.name || "John"}&background=random&color=fff`}
@@ -200,17 +200,17 @@ function Dragable() {
 
                                 <Tooltip title={data.title}>
                                     <p className="text-sm font-semibold text-gray-800">
-                                        {data.title?.length > 20 ? data.title.substring(0, 20) + "..." : data.title}
+                                        {data.title?.length > 12 ? data.title.substring(0, 12) + "..." : data.title}
                                     </p>
                                 </Tooltip>
 
                                 <Tooltip title={<div className="max-h-[40vh] max-w-[300px] overflow-auto p-3">{data.desc}</div>}>
                                     <p className="text-xs font-semibold text-gray-600">
-                                        {data.desc?.length > 30 ? data.desc.substring(0, 15) + "..." : data.desc}
+                                        {data.desc?.length > 12 ? data.desc.substring(0, 12) + "..." : data.desc}
                                     </p>
                                 </Tooltip>
 
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between lg:items-center flex-col lg:flex-row  items-start gap-1.5 lg:gap-0">
                                     <p className="text-xs flex gap-2 font-semibold text-gray-800">
                                         {getStatusIcon(data.status)} {data.status}
                                     </p>
@@ -222,8 +222,8 @@ function Dragable() {
                                     </p>
                                 </div>
 
-                                <div className="text-right">
-                                    <p className="text-xs font-semibold text-gray-500">{dayjs(data.time).format("DD MMM YYYY")}</p>
+                                <div className="text-right flex items-start">
+                                    <p className="text-xs font-semibold text-gray-500 ">{dayjs(data.time).format("DD MMM YYYY")}</p>
                                 </div>
                             </div>
                         ))}
@@ -239,7 +239,7 @@ function Dragable() {
                 title={<p>Comments</p>}
                 placement="right"
                 open={cmntOpen}
-                width={isTablet ? 300 : 600}
+                width={500}
                 onClose={() => setCmntOpen(false)}
             >
                 <Comments data={drawerData} />
