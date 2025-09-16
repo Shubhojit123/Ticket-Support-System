@@ -78,7 +78,7 @@ function handelToggle(toggled) {
 
 
         <div className=" w-[100%] h-[100vh] bg-gray-100 p-4 flex flex-col gap-5 dark:bg-black">
-          <div className="w-full h-16 bg-white shadow-md rounded-lg px-6 flex items-center justify-between dark:bg-black shadow-gray-300">
+          <div className="w-full h-16 bg-white shadow-md rounded-lg px-6 flex items-center justify-between dark:bg-black shadow-gray-300 dark:shadow-gray-500" >
             <div className="flex items-center gap-4" onClick={() => setMenuOpen(true)}>
               <IoMdMenu className='cursor-pointer dark:text-white md:text-xl text-sm' />
               {!isMobile && <img src={logo} className='w-9 h-9 ' />}

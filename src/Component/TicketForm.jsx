@@ -102,7 +102,7 @@ function TicketForm() {
     return (
         <>
             {contextHolder}
-            <div className='h-full w-full p-4 flex flex-col gap-3'>
+            <div className='h-full w-full py-1 px-2 flex flex-col gap-3'>
                 <div className='h-10 w-full flex rounded-sm text-blue-600 text-xl font-semibold items-center justify-center flex-row gap-1'>
                     <p><MdAssignmentAdd /></p>
                     <p>Add Ticket</p>
