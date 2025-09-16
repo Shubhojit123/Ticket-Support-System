@@ -3,3 +3,9 @@
 body{
     font-family: 'outfit',sans-serif;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #00090e !important; /* Replace with your desired color */
+}

@@ -22,7 +22,7 @@ function TicketLists() {
 
     const [search, setSearch] = useState([]);
 
- 
+
 
     const filterData = datas.filter((item) => (
         item.name.toLowerCase().includes(search)
@@ -45,8 +45,8 @@ function TicketLists() {
             key: "id",
             render: (id) => (
                 <Tooltip title={id}>
-                    <div className="flex items-center gap-2">
-                        <LuBox className="text-2xl border p-1 text-white bg-gray-900 rounded-lg" />
+                    <div className="flex items-center gap-2 dark:text-white">
+                        <LuBox className="text-2xl border p-1 text-white bg-gray-900 rounded-lg " />
                         {id.substring(0, 6)}...
                     </div>
                 </Tooltip>
@@ -68,13 +68,13 @@ function TicketLists() {
             title: "Title",
             dataIndex: "title",
             key: "title",
-            render: (title) => <Tooltip title={title}><span>{title.length > 10 ? title.substring(0, 10)+"..." : title}</span>,</Tooltip>
+            render: (title) => <Tooltip title={title}><span className='dark:text-white'>{title.length > 10 ? title.substring(0, 10) + "..." : title}</span>,</Tooltip>
         },
         {
             title: "Description",
             dataIndex: "desc",
             key: "desc",
-            render: (desc) => <Tooltip title={<div className='max-h-[40vh] max-w[350px] overflow-auto p-3'>{desc}</div>}><span>{desc.length > 10 ? desc.substring(0, 10)+"..." : desc}</span>,</Tooltip>
+            render: (desc) => <Tooltip title={<div className='max-h-[40vh] max-w[350px] overflow-auto p-3 '>{desc}</div>}><span className='dark:text-white'>{desc.length > 10 ? desc.substring(0, 10) + "..." : desc}</span>,</Tooltip>
         },
         {
             title: "Priority",
@@ -87,7 +87,7 @@ function TicketLists() {
             ],
             onFilter: (value, record) => record.priority === value,
             render: (priority) => (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 dark:text-white">
                     <FaCircle
                         className={`text-xs ${priority === "Low"
                             ? "text-green-600"
@@ -111,7 +111,7 @@ function TicketLists() {
             ],
             onFilter: (value, record) => record.status === value,
             render: (status) => (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 dark:text-white">
                     {getStatusIcon(status)}
                     {status}
                 </div>
@@ -123,7 +123,7 @@ function TicketLists() {
             key: "time",
             render: (time) => (
                 <Tooltip title={dayjs(time).format("DD MMM YYYY")}>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 dark:text-white">
                         <IoCalendarClear className="text-lg" />
                         {dayjs(time).format("DD MMM")}
                     </div>
@@ -134,14 +134,26 @@ function TicketLists() {
     return (
         <>
             <div className='w-[96%] mt-4'>
-                <Search placeholder="Search title" onChange={(e) => setSearch(e.target.value.toLowerCase())} 
+                <Search placeholder="Search title" onChange={(e) => setSearch(e.target.value.toLowerCase())}
                     onSearch={(value) => setSearch(value.toLowerCase())} enterButton allowClear />
             </div>
-            <div className="w-[96%] h-[73vh] mt-4 bg-white  flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
-                <Table dataSource={filterData} className="cursor-pointer" scroll={{ x: "max-content" }} columns={columns} rowKey="id" pagination={{ pageSize: 6 }} style={{ width: "100%", height: "100%" }} onRow={(record) => ({
-                    onClick: () => navigate(`/ticket/${record.id}`),
-                })} />
+            <div className="w-[96%] h-[73vh] mt-4 bg-white dark:bg-gray-900 flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
+                <Table
+                    dataSource={filterData}
+                    className="cursor-pointer ant-table-no-hover"
+                    scroll={{ x: "max-content" }}
+                    columns={columns}
+                    rowKey="id"
+                    pagination={{ pageSize: 6 }}
+                    style={{ width: "100%", height: "100%" }}
+                    onRow={(record) => ({
+                        onClick: () => navigate(`/ticket/${record.id}`),
+                    })}
+                    rowClassName={() => "dark:bg-gray-900"}
+                />
             </div>
+
+
 
 
 

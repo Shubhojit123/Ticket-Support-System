@@ -52,18 +52,18 @@ function TicketDetails() {
   return (
     <>
       {contextHolder}
-      <div className="flex flex-col-reverse md:flex-row w-full h-full min-h-screen gap-4 fixed bg-gray-100 ">
+      <div className="flex flex-col-reverse md:flex-row w-full h-full min-h-screen gap-4 fixed bg-gray-100  dark:bg-black">
 
-        <div className="w-full sm:w-[50%] md:w-[40%] lg:w-[25%] h-[60vh] md:h-auto border border-gray-100 rounded-md overflow-auto hidden md:block ">
+        <div className="w-full sm:w-[50%] md:w-[40%] lg:w-[25%] h-[60vh] md:h-auto border border-gray-100 rounded-md overflow-auto hidden md:block dark:border-gray-800">
           <Comments data={idData} />
         </div>
 
-        <div className="w-full sm:w-[50%] md:w-[60%] lg:w-[75%] flex flex-col gap-5 mb-20 md:mb-0 overflow-hidden">
+        <div className="w-full sm:w-[50%] md:w-[60%] lg:w-[75%] flex flex-col gap-5 mb-20 md:mb-0 overflow-hidden ">
 
-          <div className="w-full p-4 shadow-md flex flex-col gap-3 bg-white rounded-md">
+          <div className="w-full p-4 shadow-md flex flex-col gap-3 bg-white rounded-md dark:bg-gray-800 dark:text-white">
             <button
               onClick={() => navigate(-1)}
-              className='p-1 text-blue-600 cursor-pointer flex flex-row items-center gap-2  rounded-lg text-xs font-semibold hover:text-blue-800 duration-300 block '
+              className='p-1 text-blue-600 cursor-pointer flex flex-row items-center gap-2  rounded-lg text-sm font-semibold hover:text-blue-800 duration-300 block dark:text-blue-300  '
             >
               <FaArrowLeft />
               <span>Back</span>
@@ -79,7 +79,7 @@ function TicketDetails() {
             </div>
           </div>
 
-          <div className="w-full h-[60vh] md:h-[80vh] bg-white rounded-md p-4 shadow-md overflow-auto">
+          <div className="w-full h-[60vh] md:h-[80vh] bg-white rounded-md p-4 shadow-md overflow-auto dark:bg-black">
             <Overview data={idData} />
           </div>
 

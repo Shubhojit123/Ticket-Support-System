@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  value: "Kanban"
+  value: "Kanban",
+  dark:true
 }
 
 export const kanbanSlice = createSlice({
@@ -10,7 +11,9 @@ export const kanbanSlice = createSlice({
     reducers:{
         change:(state,action)=>{
             state.value = action.payload;
-        }
+        },
+    
+
     }
 })
 

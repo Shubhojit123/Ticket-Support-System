@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import { TicketContext } from './ContextApi';
 import { Input, message } from 'antd';
-import { MdBackHand } from 'react-icons/md';
+import { MdAssignmentAdd, MdBackHand } from 'react-icons/md';
+import { RiMailSendLine } from 'react-icons/ri';
 
 const { TextArea } = Input;
 
@@ -103,7 +104,7 @@ function TicketForm() {
             {contextHolder}
             <div className='h-full w-full p-4 flex flex-col gap-3'>
                 <div className='h-10 w-full flex rounded-sm text-blue-600 text-xl font-semibold items-center justify-center flex-row gap-1'>
-                    <p><MdBackHand /></p>
+                    <p><MdAssignmentAdd /></p>
                     <p>Add Ticket</p>
                 </div>
 
@@ -191,7 +192,7 @@ function TicketForm() {
                             type="submit"
                             className="py-2 px-2  flex flex-row items-center text-xs font-bold rounded-lg text-blue-600 bg-blue-100 cursor-pointer hover:bg-blue-200 duration-200 w-[100%] justify-center gap-4 ">
                             <p className='p-3 group-hover:text-gray-50 scale-135'>Create Ticket</p>
-                            <p className='p-2 scale-250 group-hover:text-gray-50 '><IoIosSend /></p>
+                            <p className='p-2 scale-250 group-hover:text-gray-50 '><RiMailSendLine/></p>
                         </button>
                        </div>
                     </form>

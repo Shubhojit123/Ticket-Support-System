@@ -51,9 +51,10 @@ function Overview({ data }) {
 
 
   return (
-    <div className=' h-full flex flex-col gap-4 p-2 md:p-4 w-full'>
+
+    <div className=' h-full flex flex-col gap-4 p-2 md:p-4 w-full dark:bg-black'>
       {contextHolder}
-      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-white rounded-md shadow-sm w-full'>
+      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-white dark:bg-gray-800 dark:text-white rounded-md shadow-sm w-full'>
         <div className='flex items-center gap-3'>
           <FaUser />
           <p className='text-sm sm:text-base font-medium'>{data.name}</p>
@@ -63,7 +64,7 @@ function Overview({ data }) {
         </p>
       </div>
 
-      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3  p-4 bg-white rounded-md shadow-sm '>
+      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3  p-4 bg-white rounded-md shadow-sm dark:bg-gray-800 dark:text-white'>
         <p className='flex items-center gap-2 text-sm sm:text-base'>
           {getStatusIcon(data.status)} {data.status}
         </p>
@@ -76,9 +77,9 @@ function Overview({ data }) {
         </Dropdown>
 
       </div>
-      <div className='p-4 w-full bg-white rounded-md shadow-sm flex flex-col gap-2 max-h-[45vh] overflow-auto'>
+      <div className='p-4 w-full bg-white rounded-md shadow-sm flex flex-col gap-2 max-h-[45vh] overflow-auto dark:bg-gray-800 dark:text-white'>
         <p className='text-base sm:text-lg font-semibold break-words'>Description</p>
-        <p className='text-xs sm:text-sm text-gray-600 break-words whitespace-normal'>
+        <p className='text-xs sm:text-sm text-gray-600 break-words whitespace-normal dark:text-gray-100'>
           {data.desc}
         </p>
       </div>
@@ -111,6 +112,7 @@ function Overview({ data }) {
         open={commentDrawerOpen}
         onClose={() => setCommentDrawerOpen(false)}
         width={300}
+        className='dark:bg-black'
       >
         <Comments data={data} />
       </Drawer>
