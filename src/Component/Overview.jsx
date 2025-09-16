@@ -111,7 +111,7 @@ function Overview({ data }) {
         placement="right"
         open={commentDrawerOpen}
         onClose={() => setCommentDrawerOpen(false)}
-        width={300}
+        width={400}
         className='dark:bg-black'
       >
         <Comments data={data} />

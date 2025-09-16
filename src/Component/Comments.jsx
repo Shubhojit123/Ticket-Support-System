@@ -62,10 +62,10 @@ function Comments({ data }) {
                         <p className='dark:text-gray-100'>No Comment Available</p>
                     </div>}
             </div>
-            <div className='w-[100%] h-[10%]  mt-2 border border-gray-200 shadow-md rounded-md p-2 flex flex-row gap-2 items-center dark:border-gray-500'>
+            <div className='w-[100%] h-[10%]  mt-2  border-gray-200 shadow-md rounded-md p-2 flex flex-row gap-2 items-center dark:border-gray-500 '>
                 <Input placeholder='Enter Comment' style={{ width: "80%" }} value={commentText} onChange={(e) => setComment(e.target.value)} onPressEnter={() => handelComment(data.id)} />
-                <HappyProvider><p className='text-2xl cursor-pointer p-3 rounded-full bg-blue-100  flex justify-center items-center text-blue-600 font-semibold hover:bg-blue-200 duration-200'>
-                    <VscSend style={{ fontWeight: "bold" }} onClick={() => { handelComment(data.id) }} /></p></HappyProvider>
+                <p className='text-2xl cursor-pointer p-3 rounded-full bg-blue-100  flex justify-center items-center text-blue-600 font-semibold hover:bg-blue-200 duration-200'>
+                    <VscSend style={{ fontWeight: "bold" }} onClick={() => { handelComment(data.id) }} /></p>
 
             </div>
         </div>
