@@ -79,7 +79,7 @@ function TicketDetails() {
             </div>
           </div>
 
-          <div className="w-full h-[60vh] md:h-[80vh] bg-white rounded-md p-4 shadow-md overflow-auto dark:bg-black">
+          <div className="w-full h-[60vh] md:h-[80vh] sm:h-[90vh] bg-white rounded-md p-4 shadow-md overflow-auto dark:bg-black">
             <Overview data={idData} />
           </div>
 

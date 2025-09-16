@@ -86,7 +86,7 @@ function CardView() {
 
                 <div className='flex flex-row w-[100%] md:w-[55%]  items-center justify-evenly gap-1 md:gap-0 '>
                     <Select
-                        prefix={<GoStack/>}
+                        prefix={<GoStack className="text-gray-500"/>}
                         placeholder={isMobile ? "Priority" : "Select Priority"}                  
                         allowClear
                         onChange={(value) => { applyFilter(); setPriority(value) }}
