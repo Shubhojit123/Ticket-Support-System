@@ -4,7 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { MessageCircle, Clock8, User } from 'lucide-react'
 import { FaRegClock } from "react-icons/fa";
-import { Input , message} from 'antd';
+import { Button, Input, message } from 'antd';
 import { VscSend } from "react-icons/vsc";
 import { HappyProvider } from '@ant-design/happy-work-theme';
 import { TicketContext } from './ContextApi';
@@ -20,7 +20,7 @@ function Comments({ data }) {
     console.log(data.comments.length)
     const messagesEndRef = useRef(null);
     const [commentText, setComment] = useState("");
-    const { addComment , isTablet} = useContext(TicketContext);
+    const { addComment, isTablet } = useContext(TicketContext);
     function handelComment(id) {
         if (commentText.length < 1) {
             messageApi.info("Please enter the Comment");
@@ -37,7 +37,7 @@ function Comments({ data }) {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [data.comments])
     return (
-        
+
         <div className='w-[100%] h-[100%] p-2 flex flex-col gap-2 bg-black'>
             {contextHolder}
             <div className='bg-white border-b border-slate-200 p-4 flex items-center gap-3 shadow-sm rounded-md dark:bg-black'>
@@ -64,9 +64,17 @@ function Comments({ data }) {
             </div>
             <div className='w-[100%] h-[10%]  mt-2  border-gray-200 shadow-md rounded-md p-2 flex flex-row gap-2 items-center dark:border-gray-500 '>
                 <Input placeholder='Enter Comment' style={{ width: "80%" }} value={commentText} onChange={(e) => setComment(e.target.value)} onPressEnter={() => handelComment(data.id)} />
-                <p className='text-2xl cursor-pointer p-3 rounded-full bg-blue-100  flex justify-center items-center text-blue-600 font-semibold hover:bg-blue-200 duration-200'>
-                    <VscSend style={{ fontWeight: "bold" }} onClick={() => { handelComment(data.id) }} /></p>
-
+                <HappyProvider>
+                    <Button
+                        type="primary"
+                        shape="circle"
+                        size="large"
+                        onClick={() => handelComment(data.id)}
+                        className="bg-blue-100 text-blue-600"
+                    >
+                        <VscSend style={{ fontWeight: "bold" }} />
+                    </Button>
+                </HappyProvider>
             </div>
         </div>
     )
