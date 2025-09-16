@@ -9,6 +9,7 @@ const ContextApi = ({ children }) => {
   const [datas, setData] = useState([]);
   const [isTablet, setIsTablet] = useState(window.innerWidth < 770);
   const STORAGE = import.meta.env.VITE_STORAGE;
+  const DELSTORAGE = import.meta.env.VITE_DELETE_STORAGE;
   function getAllTickets() {
     try {
       const totalTickets = JSON.parse(localStorage.getItem(STORAGE)) || [];
@@ -46,6 +47,29 @@ function addComment(id, newComment) {
   } catch (error) {
     console.log(error);
   }
+}
+
+
+function deleteTicket(id)
+{
+    try {
+        let tickets = JSON.parse(localStorage.getItem(STORAGE));
+        if(tickets.length < 1)
+        {
+              alert("Ticket have ticket");
+              return;
+        }
+
+        let deletes = JSON.parse(localStorage.getItem(DELSTORAGE)) || [];
+        let deleted = tickets.filter (ticket => ticket.id === id);
+        deletes.push(deleted);
+        localStorage.setItem(DELSTORAGE,JSON.stringify(deletes));
+        tickets = tickets.filter(ticket=>ticket.id !== id);
+        localStorage.setItem(STORAGE,JSON.stringify(tickets));
+
+    } catch (error) {
+      console.log(error)
+    }
 }
 
 
@@ -87,7 +111,7 @@ function addComment(id, newComment) {
           }
       }
   return (
-    <TicketContext.Provider value={{ getAllTickets, datas, setData, addComment,getPriorityColor,getStatusIcon,updateStatus,isTablet }}>
+    <TicketContext.Provider value={{ getAllTickets, datas, setData, addComment,getPriorityColor,getStatusIcon,updateStatus,isTablet,deleteTicket }}>
       {children}
     </TicketContext.Provider>
   )

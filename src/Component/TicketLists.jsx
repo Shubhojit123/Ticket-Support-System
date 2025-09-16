@@ -22,9 +22,7 @@ function TicketLists() {
 
     const [search, setSearch] = useState([]);
 
-    function handelSearch(value) {
-        setSearch(value);
-    }
+ 
 
     const filterData = datas.filter((item) => (
         item.name.toLowerCase().includes(search)

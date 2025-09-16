@@ -172,7 +172,7 @@ function Dragable() {
                         {getCol(item).map((data, idx) => (
                             <div
                                 key={idx}
-                                className="w-full min-h-[260px] border border-gray-200 shadow-md bg-white rounded-lg flex flex-col gap-3 cursor-move p-3"
+                                className="w-full max-h-[260px] border border-gray-200 shadow-md bg-white rounded-lg flex flex-col gap-3 cursor-move p-3"
                                 draggable
                                 onDragStart={(e) => handelDragStart(e, data.id, data.status)}
                                 onDragEnd={handelDragEnd}
