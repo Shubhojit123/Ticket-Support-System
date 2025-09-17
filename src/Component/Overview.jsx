@@ -102,7 +102,7 @@ function Overview({ data }) {
           onConfirm={() => {deleteTicket(data.id); messageApi.success("Deleted Successfully");setTimeout(() => {navigate(-1);}, 1000)}}
 
         >
-          <p className='text-2xl text-red-500 cursor-pointer'><MdDelete /></p>
+          <p className='text-2xl text-red-500 cursor-pointer md:text-4xl'><MdDelete /></p>
         </Popconfirm>
       </div>
 

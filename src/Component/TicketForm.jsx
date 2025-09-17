@@ -79,10 +79,11 @@ function TicketForm() {
             oldTicket.push(payLoad);
             localStorage.setItem(STORAGE, JSON.stringify(oldTicket));
             messageApi.success("We will contact Soon");
-            idShow.current.style.display = "block";
 
             setTitle("");
-            setDesc('');
+            setDesc("");
+            setName("");
+            setOption("")
             getAllTickets();
         } catch (error) {
             toast.error("Internal Error");
@@ -197,38 +198,6 @@ function TicketForm() {
                         </button>
                        </div>
                     </form>
-
-                    <div className="flex items-center justify-between hidden mt-3" ref={idShow}>
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
-                            <div className="bg-green-100 p-2 rounded-full">
-                                <span className="text-sm">✅</span>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-green-800">Ticket Created Successfully!</h3>
-                                <p className="text-green-700 text-sm">
-                                    Your ticket ID is: <span className="font-mono font-bold ">{id}</span>
-                                </p>
-                            </div>
-                            <button
-                                onClick={() => copyToClipboard(id)}
-                                className="flex items-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200
-                                text-green-700 rounded-lg transition-colors duration-200 font-medium cursor-pointer"
-                                title="Copy Ticket ID"
-                            >
-                                {copied ? (
-                                    <>
-                                        <AiOutlineCheck />
-                                        <span className="text-sm">Copied!</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <FaCopy />
-                                        <span className="text-sm">Copy ID</span>
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </>

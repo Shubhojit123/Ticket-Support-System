@@ -103,7 +103,7 @@ function handelToggle(toggled) {
 
                 
               <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center py-2 px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
-                <p><MdBackHand /></p><p>Add</p></p>
+                <p><IoMdAdd/></p><p>Add</p></p>
             </div>
 
           </div>
