@@ -7,6 +7,7 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { FaChartPie } from "react-icons/fa";
 import { Pie } from "react-chartjs-2";
 import { Progress } from "antd";
+import { FcDeleteDatabase } from "react-icons/fc";
 
 function DashBoardView() {
   const { getAllTickets, datas, getPriorityColor } = useContext(TicketContext);
@@ -17,7 +18,8 @@ function DashBoardView() {
   const [totalLow, setTotalLow] = useState([]);
   const [totalMedium, setTotalMedium] = useState([]);
   const[totalCompleteRate,setTotalCompleteRate] = useState("");
-
+  const [deletedData,setDeletedData] = useState();
+  const DELETE_STORAGE =  import.meta.env.VITE_DELETE_STORAGE;
   useEffect(() => {
     getAllTickets();
   }, []);
@@ -46,6 +48,8 @@ function DashBoardView() {
       setTotalHigh(totalHighTicket);
       setTotalLow(totalLowTicket);
       setTotalMedium(totalMediumTicket);
+      const deletedData = JSON.parse(localStorage.getItem(DELETE_STORAGE)) || [];
+      setDeletedData(deletedData.length);
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +70,7 @@ function DashBoardView() {
 
 
   return (
-    <div className="h-[80vh] w-full flex flex-col gap-4 overflow-hidden">
+    <div className="h-[80vh] w-full flex flex-col gap-4 md:overflow-hidden overflow-y-auto">
      
 
       <div className="flex flex-col gap-3">
@@ -113,6 +117,12 @@ function DashBoardView() {
               <p className="text-green-600">Completion Rate</p>
               <Progress type="circle" percent={totalCompleteRate}/>
             </div>
+        </div>
+         <div className="w-full p-4 shadow-md  text-blue-600 rounded-md dark:text-white">
+          <p className="flex flex-row items-center gap-3">
+            <FcDeleteDatabase className="text-xl" />
+            <span>Total Deleted ({deletedData})</span>
+          </p>
         </div>
       </div>
     </div>
