@@ -7,5 +7,75 @@ body{
 @custom-variant dark (&:where(.dark, .dark *));
 
 .dark .ant-table-tbody > tr.ant-table-row:hover > td {
-  background-color: #00090e !important; /* Replace with your desired color */
+  background-color: #00090e ; 
 }
+
+.ant-table-tbody > tr.ant-table-row > td{
+  border: none !important;
+}
+
+.dark .ant-table-thead > tr > th{
+  background: #000 !important;
+  border-top: 1px solid gray;
+  color: #fff;
+}
+
+.dark  .anticon-filter
+{
+  color: #fff !important;
+}
+
+.dark .ant-pagination-item-link{
+  color: white !important;
+}
+
+.dark .ant-drawer-content {
+  background-color: #000 !important;  
+  color: #fff !important;           
+}
+
+.dark .ant-drawer-close svg {
+  color: #fff !important; 
+}
+
+.dark .ant-segmented{
+  background-color: #fff;
+  padding: 0 !important;
+}
+.dark .ant-segmented-group{
+  background-color: black;
+}
+
+.dark .ant-segmented-item{
+  color: white;
+  font-weight:600;
+}
+
+.dark .ant-progress-inner{
+  background-color: #1F2937 !important;
+}
+
+
+
+.dark .ant-segmented-item-selected
+{
+  background-color: #fff;
+  color: black;
+}
+
+.dark .ant-progress-text{
+    color: #fff !important;
+}
+
+.dark .ant-input-data-count{
+  color: white !important;
+}
+
+ .dark .form .ant-input-outlined{
+  background-color: rgb(255, 255, 255) !important;
+  color: #fff !important;
+}
+/*
+.dark .form .ant-input .css-dev-only-do-not-override-xepvsj{
+  color: #fff !important;
+} */

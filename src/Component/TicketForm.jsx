@@ -5,7 +5,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import { TicketContext } from './ContextApi';
-import { Input, message } from 'antd';
+import { Input, message, Select } from 'antd';
 import { MdAssignmentAdd, MdBackHand } from 'react-icons/md';
 import { RiMailSendLine } from 'react-icons/ri';
 
@@ -111,7 +111,7 @@ function TicketForm() {
                 <div className='h-[82%] w-full'>
                     <form onSubmit={handelSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-white">
                                 Enter Name <span className="text-red-500">*</span>
                             </label>
                             <Input
@@ -119,7 +119,8 @@ function TicketForm() {
                                 type="text"
                                 placeholder="Enter your name"
                                 value={name}
-                                className="w-full h-12 border-2 border-gray-200 rounded-lg px-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                                className="w-full h-12 border-2 border-gray-200 rounded-lg px-4 text-gray-700  focus:outline-none focus:border-blue-500  transition-all duration-200"
+                                classNames="form"
                                 onChange={(e) => setName(e.target.value)}
                                 ref={nameRef}
                                 maxLength={25}
@@ -127,7 +128,7 @@ function TicketForm() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-white">
                                 Ticket Title <span className="text-red-500">*</span>
                             </label>
                             <Input
@@ -135,7 +136,7 @@ function TicketForm() {
                                 type="text"
                                 placeholder="Brief description of your issue"
                                 value={title}
-                                className="w-full h-12 border-2 border-gray-200 rounded-lg px-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                                className="w-full h-12 border-2 border-gray-200 rounded-lg px-4 text-gray-700  focus:outline-none focus:border-blue-500 transition-all duration-200 "
                                 onChange={(e) => setTitle(e.target.value)}
                                 ref={titleRef}
                                 maxLength={50}
@@ -143,7 +144,7 @@ function TicketForm() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-white">
                                 Description <span className="text-red-500">*</span>
                             </label>
                             <TextArea
@@ -151,7 +152,7 @@ function TicketForm() {
                                 value={desc}
                                 rows={4}
                                 showCount
-                                className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-gray-700 placeholder-gray-400 resize-none focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+                                className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-gray-700  resize-none focus:outline-none focus:border-blue-500 transition-all duration-200 "
                                 onChange={(e) => setDesc(e.target.value)}
                                 ref={descRef}
                                 maxLength={400}
@@ -159,14 +160,14 @@ function TicketForm() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-gray-700">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-white">
                                 Priority Level <span className="text-red-500">*</span>
                             </label>
                             <div className="relative">
-                                <select
-                                    className="w-full h-12 border-2 rounded-lg px-4 pr-10 text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2
+                                <Select
+                                    className="w-full h-12 border-2 rounded-lg px-4 pr-10 text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-2 dark:text-white
                                     focus:ring-blue-100 transition-all duration-200 cursor-pointer appearance-none"
-                                    onChange={(e) => setOption(e.target.value)}
+                                    onChange={(value) => setOption(value)}
                                     value={option}
                                     ref={optionRef}
                                 >
@@ -174,7 +175,7 @@ function TicketForm() {
                                     <option value="Low">Low Priority</option>
                                     <option value="Medium">Medium Priority</option>
                                     <option value="High">High Priority</option>
-                                </select>
+                                </Select>
                             </div>
                             {option && (
                                 <div className="flex items-center gap-2 text-sm text-gray-600 mt-2">

@@ -2,14 +2,17 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { BsCalendar3Fill } from "react-icons/bs"
 import dayjs from 'dayjs'
-import { message, Tooltip, Drawer } from "antd"
+import { message, Tooltip, Drawer, Input, Select, Badge } from "antd"
 import { TicketContext } from './ContextApi'
 import { FaRegCircle } from "react-icons/fa"
 import { IoCheckmarkCircleSharp } from 'react-icons/io5'
 import { BsCircleHalf } from "react-icons/bs"
 import Comments from './Comments'
 import { FaCommentDots } from "react-icons/fa6"
-import { GoInbox } from 'react-icons/go'
+import { GoInbox, GoStack } from 'react-icons/go'
+import { CiSearch } from 'react-icons/ci'
+import { MdOutlineFilterList } from 'react-icons/md'
+const { Option } = Select
 
 function Dragable() {
     const { addComment, isTablet } = useContext(TicketContext)
@@ -24,9 +27,10 @@ function Dragable() {
     const [drawerData, setDrawerData] = useState([])
 
     function divideData() {
-        const openData = datas.filter((data) => data.status === "Open")
-        const processData = datas.filter((data) => data.status === "Processing")
-        const completeData = datas.filter((data) => data.status === "Completed")
+
+        const openData = filterData.filter((data) => data.status === "Open")
+        const processData = filterData.filter((data) => data.status === "Processing")
+        const completeData = filterData.filter((data) => data.status === "Completed")
         setopen(openData)
         setProcess(processData)
         setCompleted(completeData)
@@ -36,9 +40,48 @@ function Dragable() {
         getAllTickets()
     }, [])
 
+    const [priority, setPriority] = useState("");
+    const [status, setStatus] = useState("");
+    const [search, setSearch] = useState("");
+    const [filterData, setFiltedData] = useState([]);
+
+    useEffect(() => {
+        applyFilter();
+    }, [datas, search, priority, status]);
+
+
     useEffect(() => {
         divideData()
-    }, [datas])
+    }, [filterData])
+
+
+
+    function applyFilter() {
+        let result = [...datas];
+
+        if (search) {
+            const lowerValue = search.toLowerCase();
+            result = result.filter(
+                item =>
+                    item.title?.toLowerCase().includes(lowerValue) ||
+                    item.name?.toLowerCase().includes(lowerValue)
+            );
+        }
+        if (priority) {
+            result = result.filter(
+                item => item.priority?.toLowerCase() === priority.toLowerCase()
+            );
+        }
+
+        if (status) {
+            result = result.filter(
+                item => item.status?.toLowerCase() === status.toLowerCase()
+            );
+        }
+
+        setFiltedData(result.reverse());
+    }
+
 
     function getCol(col) {
         switch (col) {
@@ -143,31 +186,63 @@ function Dragable() {
 
 
     return (
-        <div className='h-[80vh] w-full flex flex-col items-center'>
-            {datas.length < 1 && 
-            <div className='flex justify-center items-center h-[50vh] flex-col gap-4 '>
-                 <p className='text-7xl text-gray-600 '><GoInbox /></p>
-                <p className='font-semibold text-gray-600'>No Data</p>
-            </div>}
-        { contextHolder }
+        <div className='h-[80vh] w-full flex flex-col items-center '>
+            
+            {contextHolder}
 
-{/* <div className="w-[96%] mt-4 bg-white flex flex-col md:flex-row rounded-lg shadow-sm hidden md:block">
-                {container.map((item, idx) => (
-                    <div key={idx} className={`text-center font-semibold text-lg md:text-xl w-full p-3 ${getBgByItem(item)}`}>
-                        {item}
-                    </div>
-                ))}
-            </div> */}
+
+            <div className='w-[96%] mt-4 flex items-center justify-center gap-4'>
+                <Input
+                    prefix={<CiSearch className="text-gray-500" />}
+                    placeholder="Search"
+                    onChange={(e) => { setSearch(e.target.value) }}
+                    className="md:w-[150px] "
+                    allowClear
+                />
+
+                <Select
+                    prefix={<GoStack className="text-gray-500" />}
+                    placeholder="Select Priority"
+                    allowClear
+                    onChange={(value) => { applyFilter(); setPriority(value) }}
+                    className="md:w-[150px] w-[135px] "
+                >
+                    <Option value="High"><p className='flex flex-row items-center gap-2'><Badge status="error" />High</p></Option>
+                    <Option value="Medium"><p className='flex flex-row items-center gap-2'><Badge status="warning" />Medium</p></Option>
+                    <Option value="Low"><p className='flex flex-row items-center gap-2'><Badge status="success" />Low</p></Option>
+                </Select>
+
+                <Select
+                    prefix={<MdOutlineFilterList className="text-gray-500" />}
+                    placeholder="Select Status"
+                    allowClear
+                    onChange={(value) => { applyFilter(datas), setStatus(value) }}
+                    className="md:w-[150px] w-[135px]"
+
+                >
+                    <Option value="Open"><p className='flex flex-row items-center gap-2'>{getStatusIcon("Open")}Open</p></Option>
+                    <Option value="Processing"><p className='flex flex-row items-center gap-2'>{getStatusIcon("Processing")}Processing</p></Option>
+                    <Option value="Completed"><p className='flex flex-row items-center gap-2'>{getStatusIcon("Completed")}Completed</p></Option>
+                </Select>
+            </div>
+
+            {filterData.length < 1 &&
+                <div className='flex justify-center items-center h-[50vh] flex-col gap-4 '>
+                    <p className='text-7xl text-gray-600 '><GoInbox /></p>
+                    <p className='font-semibold text-gray-600'>No Data</p>
+                </div>}
+
+
 
             <div className="flex flex-col md:flex-row w-[96%] gap-4 mt-4">
-                {datas.length > 1 && container.map((item) => (
+                {filterData.length > 0 && container.map((item) => (
                     <div
                         key={item}
                         className={`w-full md:w-1/3 mb-1 h-[75vh] p-4 overflow-auto flex flex-col gap-3 rounded-md ${getBgByItem(item)}`}
                         onDragOver={handelDragover}
                         onDrop={() => handelDrop(item)}
                     >
-                        <div className='flex items-center justify-center text-xl font-semibold '>{item}</div>
+                        <div className='flex items-center justify-center text-xl font-semibold  '>{item}</div>
 
                         {getCol(item).map((data, idx) => (
                             <div

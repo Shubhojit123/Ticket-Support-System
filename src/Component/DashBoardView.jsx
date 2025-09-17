@@ -71,11 +71,11 @@ function DashBoardView() {
 
       <div className="flex flex-col gap-3">
         <div className="w-full p-4 shadow-md  text-blue-600 rounded-md flex flex-col">
-          <p className="flex flex-row items-center gap-3">
+          <p className="flex flex-row items-center gap-3 dark:text-white dark:font-semibold">
             <FaTicketSimple />
             <span>Total Tickets ({datas.length})</span>
           </p>
-          <div className="w-full text-xs font-semibold flex flex-wrap gap-2 py-3">
+          <div className="w-full text-xs font-semibold flex flex-wrap gap-2 py-3 ">
             <p className={`${getPriorityColor("High")} p-2 rounded-md`}>
               High ({totalHigh.length})
             </p>
@@ -89,20 +89,20 @@ function DashBoardView() {
         </div>
 
         <div className="w-full p-4 shadow-md  text-blue-600 rounded-md">
-          <p className="flex flex-row items-center gap-3">
+          <p className="flex flex-row items-center gap-3 dark:text-white">
             <FaRegCircle className="text-red-600" />
             <span>Total Opens ({totalOpen.length})</span>
           </p>
         </div>
 
-        <div className="w-full p-4 shadow-md text-blue-600 rounded-md">
+        <div className="w-full p-4 shadow-md text-blue-600 rounded-md dark:text-white">
           <p className="flex flex-row items-center gap-3">
             <PiCircleHalfFill className="text-yellow-400" />
             <span>Total In Process ({totalProcess.length})</span>
           </p>
         </div>
 
-        <div className="w-full p-4 shadow-md  text-blue-600 rounded-md">
+        <div className="w-full p-4 shadow-md  text-blue-600 rounded-md dark:text-white">
           <p className="flex flex-row items-center gap-3">
             <GoCheckCircleFill className="text-green-400" />
             <span>Total Completed ({totalComplete.length})</span>

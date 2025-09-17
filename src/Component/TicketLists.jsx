@@ -6,12 +6,17 @@ import { BsCircleHalf } from "react-icons/bs";
 import { IoCheckmarkCircleSharp, IoCalendarClear } from "react-icons/io5";
 import { LuBox } from "react-icons/lu";
 import { TicketContext } from './ContextApi';
-import { Table, Avatar, Tooltip, Input } from "antd";
+import { Table, Avatar, Tooltip, Input, Select, Badge } from "antd";
 import { AudioOutlined } from '@ant-design/icons';
+import { GoStack } from 'react-icons/go';
+import { MdOutlineFilterList } from 'react-icons/md';
+import { CiSearch } from 'react-icons/ci';
 
 
 function TicketLists() {
     const { Search } = Input;
+    const { Option } = Select;
+
 
     const navigate = useNavigate();
     const { getAllTickets, datas, setData } = useContext(TicketContext);
@@ -20,13 +25,42 @@ function TicketLists() {
         getAllTickets();
     }, []);
 
-    const [search, setSearch] = useState([]);
+    const [priority, setPriority] = useState("");
+    const [status, setStatus] = useState("");
+    const [search, setSearch] = useState("");
+    const [filterData, setFiltedData] = useState([]);
+
+    useEffect(() => {
+        applyFilter();
+    }, [datas, search, priority, status]);
 
 
+    function applyFilter() {
+        let result = [...datas];
 
-    const filterData = datas.filter((item) => (
-        item.name.toLowerCase().includes(search)
-    ))
+        if (search) {
+            const lowerValue = search.toLowerCase();
+            result = result.filter(
+                item =>
+                    item.title?.toLowerCase().includes(lowerValue) ||
+                    item.name?.toLowerCase().includes(lowerValue)
+            );
+        }
+
+        if (priority) {
+            result = result.filter(
+                item => item.priority?.toLowerCase() === priority.toLowerCase()
+            );
+        }
+
+        if (status) {
+            result = result.filter(
+                item => item.status?.toLowerCase() === status.toLowerCase()
+            );
+        }
+
+        setFiltedData(result);
+    }
 
     function getStatusIcon(data) {
         switch (data) {
@@ -46,7 +80,7 @@ function TicketLists() {
             render: (id) => (
                 <Tooltip title={id}>
                     <div className="flex items-center gap-2 dark:text-white">
-                        <LuBox className="text-2xl border p-1 text-white bg-gray-900 rounded-lg " />
+                        <Avatar src={`https://ui-avatars.com/api/?name=${name || "John"}&background=random&color=fff`} />
                         {id.substring(0, 6)}...
                     </div>
                 </Tooltip>
@@ -57,11 +91,7 @@ function TicketLists() {
             dataIndex: "name",
             key: "name",
             render: (name) => (
-                <Tooltip title={name}>
-                    <Avatar
-                        src={`https://ui-avatars.com/api/?name=${name || "John"}&background=random&color=fff`}
-                    />
-                </Tooltip>
+                <p className='text-xs dark:text-white font-semibold'>{name}</p>
             ),
         },
         {
@@ -74,7 +104,7 @@ function TicketLists() {
             title: "Description",
             dataIndex: "desc",
             key: "desc",
-            render: (desc) => <Tooltip title={<div className='max-h-[40vh] max-w[350px] overflow-auto p-3 '>{desc}</div>}><span className='dark:text-white'>{desc.length > 10 ? desc.substring(0, 10) + "..." : desc}</span>,</Tooltip>
+            render: (desc) => <span className='dark:text-white'>{desc.length > 10 ? desc.substring(0, 10) + "..." : desc}</span>
         },
         {
             title: "Priority",
@@ -125,7 +155,7 @@ function TicketLists() {
                 <Tooltip title={dayjs(time).format("DD MMM YYYY")}>
                     <div className="flex items-center gap-2 dark:text-white">
                         <IoCalendarClear className="text-lg" />
-                        {dayjs(time).format("DD MMM")}
+                        {dayjs(time).isAfter(dayjs().subtract(1, "day")) ? dayjs(time).fromNow() : dayjs(time).format("DD MMM YY")}
                     </div>
                 </Tooltip>
             ),
@@ -133,10 +163,41 @@ function TicketLists() {
     ];
     return (
         <>
-            <div className='w-[96%] mt-4'>
-                <Search placeholder="Search title" onChange={(e) => setSearch(e.target.value.toLowerCase())}
-                    onSearch={(value) => setSearch(value.toLowerCase())} enterButton allowClear />
+            <div className='w-[96%] mt-4 flex items-center justify-center gap-4'>
+                <Input
+                    prefix={<CiSearch className="text-gray-500" />}
+                    placeholder="Search"
+                    onChange={(e) => { setSearch(e.target.value) }}
+                    className="md:w-[150px] "
+                    allowClear
+                />
+
+                <Select
+                    prefix={<GoStack className="text-gray-500" />}
+                    placeholder="Select Priority"
+                    allowClear
+                    onChange={(value) => { applyFilter(); setPriority(value) }}
+                    className="md:w-[150px] w-[135px] "
+                >
+                    <Option value="High"><p className='flex flex-row items-center gap-2'><Badge status="error" />High</p></Option>
+                    <Option value="Medium"><p className='flex flex-row items-center gap-2'><Badge status="warning" />Medium</p></Option>
+                    <Option value="Low"><p className='flex flex-row items-center gap-2'><Badge status="success" />Low</p></Option>
+                </Select>
+
+                <Select
+                    prefix={<MdOutlineFilterList className="text-gray-500" />}
+                    placeholder="Select Status"
+                    allowClear
+                    onChange={(value) => { applyFilter(datas), setStatus(value) }}
+                    className="md:w-[150px] w-[135px]"
+
+                >
+                    <Option value="Open"><p className='flex flex-row items-center gap-2'>{getStatusIcon("Open")}Open</p></Option>
+                    <Option value="Processing"><p className='flex flex-row items-center gap-2'>{getStatusIcon("Processing")}Processing</p></Option>
+                    <Option value="Completed"><p className='flex flex-row items-center gap-2'>{getStatusIcon("Completed")}Completed</p></Option>
+                </Select>
             </div>
+
             <div className="w-[96%] h-[73vh] mt-4 bg-white dark:bg-gray-900 flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
                 <Table
                     dataSource={filterData}
@@ -152,11 +213,6 @@ function TicketLists() {
                     rowClassName={() => "dark:bg-gray-900"}
                 />
             </div>
-
-
-
-
-
         </>
     )
 }

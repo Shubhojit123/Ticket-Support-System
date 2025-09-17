@@ -137,7 +137,7 @@ function handelToggle(toggled) {
             <span className=" text-blue-600 p-2 rounded-md">
               <FaChartPie className=' bg-blue-200 p-1 text-blue-600 scale-190 rounded-md' />
             </span>
-            <span>Overview</span>
+            <span className='dark:text-white'>Overview</span>
           </p>
         </div>}
         open={menuOpen}
