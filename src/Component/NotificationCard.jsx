@@ -29,7 +29,7 @@ function NotificationCard({ notifyData }) {
         <p className='text-[#0255d2] flex flex-row items-center gap-2 cursor-pointer' onClick={() => viewAllNotification()}>
           <p className='text-xl'><RiCheckDoubleFill /></p><p>Mark all as a read</p></p>
       </div>
-      <div className='h-[77vh] shadow-md overflow-x-auto flex flex-col-reverse gap-4  '>
+      <div className='h-[77vh] shadow-md overflow-x-auto flex flex-col gap-4  '>
         {notifyData.map((notification) => (
           <div
             key={notification.id}
@@ -71,6 +71,7 @@ function NotificationCard({ notifyData }) {
               title="Delete All Notifications?"
               description="This action cannot be undone."
               onConfirm={deleteAllNotification}
+              placement='top'
             >
         <p className='flex flex-row items-center gap-2 text-sm font-semibold justify-end '>
           <p className='text-2xl text-red-600'><MdDeleteSweep /></p>Delete All</p>
