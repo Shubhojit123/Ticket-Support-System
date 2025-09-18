@@ -13,11 +13,13 @@ const { TextArea } = Input;
 
 function TicketForm() {
     const [messageApi, contextHolder] = message.useMessage()
-    const { getAllTickets } = useContext(TicketContext);
+    const { getAllTickets,addNotification } = useContext(TicketContext);
 
     useEffect(() => {
         getAllTickets();
     }, []);
+
+    const NOTIFICATION = import.meta.env.VITE_CREATE_NOTIFICATION;
 
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -79,7 +81,9 @@ function TicketForm() {
             oldTicket.push(payLoad);
             localStorage.setItem(STORAGE, JSON.stringify(oldTicket));
             messageApi.success("We will contact Soon");
-
+            const NotifyMsg = `Ticket Created by ${nameTrim}`;
+            const NotifyDesc = `ID is ${id}`;
+            addNotification(NotifyMsg,NotifyDesc);
             setTitle("");
             setDesc("");
             setName("");

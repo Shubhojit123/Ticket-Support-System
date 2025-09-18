@@ -3,10 +3,10 @@ import TicketForm from '../Component/TicketForm'
 
 function CreateTicket() {
   return (
-    <div className='h-[100vh] w-screen flex flex-row justify-between'>
-      <div className='h-[100%] w-[48%] border border-gray-300'>
+    <div className='h-[100vh] w-screen flex flex-col-reverse md:flex-row justify-between'>
+      <div className='h-[100%] w-[48%] '>
       </div>
-      <div className='h-[100%] w-[50%] flex justify-center items-center'>
+      <div className='h-[100%] w-[100%] md:w-[40%] flex justify-center items-center px-5 py-2'>
         <TicketForm/>
       </div>
     </div>

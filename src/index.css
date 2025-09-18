@@ -40,8 +40,13 @@ body{
 
 .dark .ant-segmented{
   background-color: #fff;
-  padding: 0 !important;
 }
+
+ .ant-segmented
+ {
+    padding: 0 !important;
+ }
+
 .dark .ant-segmented-group{
   background-color: black;
 }
@@ -79,3 +84,17 @@ body{
 .dark .form .ant-input .css-dev-only-do-not-override-xepvsj{
   color: #fff !important;
 } */
+
+
+.dark .ant-table-placeholder{
+  background: #111827 !important;
+  border: 2px solid black !important;
+}
+
+.dark .ant-empty-description{
+  color: #fff !important;
+}
+
+.ant-drawer-body{
+  padding: 0 !important;
+}

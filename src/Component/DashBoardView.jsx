@@ -8,6 +8,7 @@ import { FaChartPie } from "react-icons/fa";
 import { Pie } from "react-chartjs-2";
 import { Progress } from "antd";
 import { FcDeleteDatabase } from "react-icons/fc";
+import { useNavigate } from "react-router";
 
 function DashBoardView() {
   const { getAllTickets, datas, getPriorityColor } = useContext(TicketContext);
@@ -20,6 +21,7 @@ function DashBoardView() {
   const[totalCompleteRate,setTotalCompleteRate] = useState("");
   const [deletedData,setDeletedData] = useState();
   const DELETE_STORAGE =  import.meta.env.VITE_DELETE_STORAGE;
+  const navigate = useNavigate();
   useEffect(() => {
     getAllTickets();
   }, []);
@@ -65,12 +67,14 @@ function DashBoardView() {
     } catch (error) {
       console.log(error);
     }
-  },[datas,totalComplete])
+  },[datas,totalComplete]);
+
+
 
 
 
   return (
-    <div className="h-[80vh] w-full flex flex-col gap-4 md:overflow-hidden overflow-y-auto">
+    <div className="h-[83vh] w-full flex flex-col gap-4 md:overflow-hidden overflow-y-auto">
      
 
       <div className="flex flex-col gap-3">
@@ -118,7 +122,9 @@ function DashBoardView() {
               <Progress type="circle" percent={totalCompleteRate}/>
             </div>
         </div>
-         <div className="w-full p-4 shadow-md  text-blue-600 rounded-md dark:text-white">
+         <div className="w-full p-4 shadow-md cursor-pointer hover:bg-gray-100 duration-300 text-blue-600 rounded-md dark:text-white dark:hover:text-black"
+            onClick={()=> navigate("/deleted")}
+         >
           <p className="flex flex-row items-center gap-3">
             <FcDeleteDatabase className="text-xl" />
             <span>Total Deleted ({deletedData})</span>

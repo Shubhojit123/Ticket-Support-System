@@ -3,7 +3,7 @@ import TicketLists from '../Component/TicketLists';
 import { MdBackHand, MdViewKanban } from "react-icons/md";
 import { BsCardText } from "react-icons/bs";
 import Dragable from '../Component/Dragable';
-import { Button, Drawer } from "antd";
+import { Badge, Button, Drawer, Tooltip } from "antd";
 import { FiPlus } from "react-icons/fi";
 import TicketForm from "../Component/TicketForm"
 import logo from "../assets/logo.png"
@@ -19,6 +19,8 @@ import { FaChartPie } from 'react-icons/fa';
 import { FaWpforms } from "react-icons/fa";
 import "@theme-toggles/react/css/Around.css"
 import { Around } from "@theme-toggles/react"
+import { IoNotifications } from 'react-icons/io5';
+import NotificationCard from '../Component/NotificationCard';
 
 function Dashboard() {
 
@@ -26,17 +28,21 @@ function Dashboard() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false)
   const [kanban, setKanban] = useState()
-  const { isTablet } = useContext(TicketContext);
+  const { isTablet,notifyData,notificationCount } = useContext(TicketContext);
   const kanbanValue = useSelector((state) => state.kanban.value);
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setMobile] = useState(window.innerWidth < 325);
+  const [notification,setNotification] = useState(false);
+ 
 
   useEffect(() => {
     const handleResize = () => setMobile(window.innerWidth < 325);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  
 
 
   const [toggle, setToggle] = useState(false);
@@ -59,10 +65,10 @@ function Dashboard() {
   }, [toggle]);
 
 
-function handelToggle(toggled) {
-  localStorage.setItem("toggle", toggled);
-  setToggle(toggled);
-}
+  function handelToggle(toggled) {
+    localStorage.setItem("toggle", toggled);
+    setToggle(toggled);
+  }
 
 
 
@@ -86,12 +92,17 @@ function handelToggle(toggled) {
             </div>
 
 
-            <div className='flex flex-row-reverse items-center gap-5'>
+            <div className='flex flex-row-reverse items-center gap-3 md:gap-5'>
+              <div className='cursor-pointer flex items-center' onClick={()=>setNotification(true)}>
+                  <Badge count={notificationCount}>
+                    <p className='text-xl md:text-2xl dark:text-white'><IoNotifications /></p>
+                  </Badge>
+              </div>
               <div className='flex items-center justify-center'>
-                <Around duration={750} className={`text-2xl scale-130 ${toggle? "text-blue-600" : "text-black"}`} toggled={toggle} onToggle={handelToggle} />
+                <Around duration={750} className={`text-2xl scale-130 ${toggle ? "text-blue-600" : "text-black"}`} toggled={toggle} onToggle={handelToggle} />
               </div>
               <div className='mx-4 hidden md:block dark:bg-black'>
-                <Segmented 
+                <Segmented
                   options={[
                     { value: 'List', icon: <BarsOutlined /> },
                     { value: 'Kanban', icon: <AppstoreOutlined /> },
@@ -101,9 +112,9 @@ function handelToggle(toggled) {
                 />
               </div>
 
-                
+
               <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center py-2 px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
-                <p><IoMdAdd/></p><p>Add</p></p>
+                <p><IoMdAdd /></p><p>Add</p></p>
             </div>
 
           </div>
@@ -146,6 +157,21 @@ function handelToggle(toggled) {
         placement='left'
       >
         <DashBoardView />
+      </Drawer>
+
+      <Drawer
+       title={<div className="w-full flex items-start justify-between ">
+          <p className="flex flex-row justify-start gap-3 items-center font-semibold text-gray-700  w-[100%] ">
+            <span className=" text-blue-600 p-2 rounded-md">
+              <IoNotifications className=' bg-blue-200 p-1 text-blue-600 scale-190 rounded-md' />
+            </span>
+            <span className='dark:text-white'>Notification</span>
+          </p>
+        </div>}
+        open={notification}
+        onClose={()=>setNotification(false)}
+      >
+        <NotificationCard notifyData={notifyData}/>
       </Drawer>
 
     </>

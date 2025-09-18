@@ -4,7 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { MessageCircle, Clock8, User } from 'lucide-react'
 import { FaRegClock } from "react-icons/fa";
-import { Button, Input, message, Tag } from 'antd';
+import { Button, Input, message, Tag, Tooltip } from 'antd';
 import { VscSend } from "react-icons/vsc";
 import { HappyProvider } from '@ant-design/happy-work-theme';
 import { TicketContext } from './ContextApi';
@@ -14,7 +14,7 @@ import { AiOutlineInbox } from "react-icons/ai";
 import Btn from './Btn';
 
 
-function Comments({ data }) {
+function Comments({ data, del }) {
     const [messageApi, contextHolder] = message.useMessage();
 
     console.log(data.comments.length)
@@ -36,6 +36,7 @@ function Comments({ data }) {
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [data.comments])
+    console.log(del)
     return (
 
         <div className='w-[100%] h-[100%] p-2 flex flex-col gap-2 dark:bg-black'>
@@ -63,7 +64,9 @@ function Comments({ data }) {
                     </div>}
             </div>
             <div className='w-[100%] h-[10%]  mt-2  border-gray-200 shadow-md rounded-md p-2 flex flex-row gap-2 items-center dark:border-gray-500 '>
-                <Input placeholder='Enter Comment' style={{ width: "80%" }} value={commentText} onChange={(e) => setComment(e.target.value)} onPressEnter={() => handelComment(data.id)} />
+                <Input placeholder='Enter Comment' style={{ width: "80%" }} value={commentText} onChange={(e) => setComment(e.target.value)} onPressEnter={() => handelComment(data.id)}
+                   disabled={del}
+                />
                 <HappyProvider >
                     
                     <Button
@@ -72,6 +75,7 @@ function Comments({ data }) {
                         size="large"
                         onClick={() => handelComment(data.id)}
                         className="bg-blue-100 text-blue-600"
+                        disabled={del}
                     >
                         <VscSend style={{ fontWeight: "bold" }} />
                     </Button>

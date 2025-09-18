@@ -4,17 +4,17 @@ import { TicketContext } from './ContextApi'
 import { CommentOutlined, DownOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 import { Dropdown, Space, Drawer, Button, Popconfirm, message } from 'antd'
 import Comments from './Comments'
-import { MdDelete } from 'react-icons/md'
-import { useNavigate } from 'react-router'
+import { MdDelete, MdSettingsBackupRestore } from 'react-icons/md'
+import { useNavigate, useParams, useSearchParams } from 'react-router'
 
-function Overview({ data }) {
+function Overview({ data, del }) {
   const [messageApi, contextHolder] = message.useMessage()
 
-  const { getPriorityColor, getStatusIcon, updateStatus, isTablet, deleteTicket } = useContext(TicketContext)
+  const { getPriorityColor, getStatusIcon, updateStatus, reStoreData, deleteTicket } = useContext(TicketContext)
   const allStatuses = ["Open", "Completed", "Processing"]
   const [commentDrawerOpen, setCommentDrawerOpen] = useState(false);
   const navigate = useNavigate()
-
+  const {id} = useParams();
   const items = [
     {
       key: '1',
@@ -68,13 +68,26 @@ function Overview({ data }) {
         <p className='flex items-center gap-2 text-sm sm:text-base'>
           {getStatusIcon(data.status)} {data.status}
         </p>
-        <Dropdown menu={{ items, onClick: handelChangeStatus }}>
+        {!del && <Dropdown menu={{ items, onClick: handelChangeStatus }}>
           <a onClick={e => e.preventDefault()}>
             <Space className='text-sm sm:text-base cursor-pointer'>
               Change Status <DownOutlined />
             </Space>
           </a>
-        </Dropdown>
+        </Dropdown>}
+        {
+          del &&
+          <Popconfirm
+            title="Restore the Ticket"
+            description="Are you Restore this Ticket?"
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            onConfirm={()=>{reStoreData(id);messageApi.success("Data Restored");setTimeout(()=>navigate(-1),1000)}}
+          >
+            <p className='flex flex-row gap-1 items-center px-1 py-2 bg-gray-600 hover:bg-gray-900 duration-300 dark:text-white cursor-pointer text-white rounded-lg'>
+              <MdSettingsBackupRestore />Restore
+            </p>
+          </Popconfirm>
+        }
 
       </div>
       <div className='p-4 w-full bg-white rounded-md shadow-sm flex flex-col gap-2 max-h-[45vh] overflow-auto dark:bg-gray-800 dark:text-white'>
@@ -99,7 +112,7 @@ function Overview({ data }) {
           title="Delete the Ticket"
           description="Are you sure to delete this Ticket?"
           icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-          onConfirm={() => {deleteTicket(data.id); messageApi.success("Deleted Successfully");setTimeout(() => {navigate(-1);}, 1000)}}
+          onConfirm={() => { deleteTicket(data.id, del); messageApi.success("Deleted Successfully"); setTimeout(() => { navigate(-1); }, 1000) }}
 
         >
           <p className='text-2xl text-red-500 cursor-pointer md:text-4xl'><MdDelete /></p>
@@ -114,7 +127,7 @@ function Overview({ data }) {
         width={400}
         className='dark:bg-black'
       >
-        <Comments data={data} />
+        <Comments data={data} del={del} />
       </Drawer>
 
 
