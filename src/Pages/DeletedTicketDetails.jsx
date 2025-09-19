@@ -32,27 +32,6 @@ function DeletedTicketDetails() {
         setIdData(ticket)
     }
 
-    async function updateStatus(id, newStatus) {
-        if (!newStatus) {
-            messageApi.info("Please Select Valid Option")
-            return
-        }
-        const updatedTickets = datas.map(d => d.id == id ? { ...d, status: newStatus } : d)
-        localStorage.setItem(STORAGE, JSON.stringify(updatedTickets))
-        setIdData(updatedTickets.find(d => d.id == id))
-    }
-
-    function handelComment(id, comment) {
-        if (!comment) {
-            messageApi.info("Please add Comment")
-            return
-        }
-        const response = addComment(id, comment)
-        messageApi.success("Comment Added Successfully")
-        setCommentText("")
-        setData(response)
-    }
-
     useEffect(() => { getAllTickets() }, [])
     useEffect(() => { byId(id) }, [datas, id])
 

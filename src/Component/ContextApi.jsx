@@ -15,6 +15,7 @@ const ContextApi = ({ children }) => {
   const NOTIFICATION = import.meta.env.VITE_CREATE_NOTIFICATION;
   const [notifyData, setNotifyData] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
+  const [ticketId,setTicketId] = useState("");
 
 
   function getAllTickets() {
@@ -24,6 +25,15 @@ const ContextApi = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function setTicket(id)
+  {
+      try {
+        setTicketId(id);
+      } catch (error) {
+        console.log(error)
+      }
   }
 
 
@@ -249,7 +259,7 @@ const ContextApi = ({ children }) => {
     <TicketContext.Provider value={{
       getAllTickets, datas, setData, addComment, getPriorityColor, notifyData, notificationCount, viewAllNotification,
       getStatusIcon, updateStatus, isTablet, deleteTicket, reStoreData, addNotification,
-      deleteNotification, viewNotification, deleteAllNotification
+      deleteNotification, viewNotification, deleteAllNotification,ticketId,setTicketId,setTicket
     }}>
       {children}
     </TicketContext.Provider>

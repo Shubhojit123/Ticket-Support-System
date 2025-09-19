@@ -13,7 +13,7 @@ const { TextArea } = Input;
 
 function TicketForm() {
     const [messageApi, contextHolder] = message.useMessage()
-    const { getAllTickets,addNotification } = useContext(TicketContext);
+    const { getAllTickets,addNotification,setTicket } = useContext(TicketContext);
 
     useEffect(() => {
         getAllTickets();
@@ -84,6 +84,7 @@ function TicketForm() {
             const NotifyMsg = `Ticket Created by ${nameTrim}`;
             const NotifyDesc = `ID is ${id}`;
             addNotification(NotifyMsg,NotifyDesc);
+            setTicket(id)
             setTitle("");
             setDesc("");
             setName("");

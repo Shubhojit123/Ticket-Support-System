@@ -30,29 +30,29 @@ function NotificationCard({ notifyData }) {
           <p className='text-xl'><RiCheckDoubleFill /></p><p>Mark all as a read</p></p>
       </div>
       <div className='h-[77vh] shadow-md overflow-x-auto flex flex-col gap-4  '>
-        {notifyData.map((notification) => (
+        {notifyData?.map((notification) => (
           <div
             key={notification.id}
             className="p-4 rounded-xl bg-white dark:bg-gray-800 shadow-sm flex flex-col gap-2 relative"
           >
            
               <RxCross2 onClick={()=>deleteNotification(notification.id)}
-                size={16}
-                className="text-sm absolute top-3 right-3 text-red-500 hover:text-red-600 transition cursor-pointer"
+                size={23}
+                className=" absolute top-3 right-3 text-red-500 hover:text-red-600 transition cursor-pointer"
               />
 
             {!notification.read && (
               <IoCheckmark
-                size={16}
-                className="text-sm absolute top-9 right-3 text-[#0255d2] transition cursor-pointer"
+              size={23}
+                className=" absolute top-9 right-3 text-[#0255d2] transition cursor-pointer dark:text-green-500"
                 onClick={() => viewNotification(notification.id)}
               />
             )}
 
-            <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+            <p className={`text-sm font-semibold ${notification.read ? "text-gray-700 dark:text-gray-300":"text-gray-900 dark:text-gray-100 font-semibold"} `}>
               {notification.msg}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className={`text-sm ${notification.read ? "text-gray-500 dark:text-gray-400":"text-gray-800 dark:text-gray-200"} `}>
               {notification.desc}
             </p>
 

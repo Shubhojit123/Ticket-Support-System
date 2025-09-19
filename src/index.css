@@ -98,3 +98,40 @@ body{
 .ant-drawer-body{
   padding: 0 !important;
 }
+
+.dark .ant-input-outlined{
+    background: #111827 !important;
+    color: #fff;
+}
+
+.dark .ant-input-prefix .text-gray-500{
+  color: #fff;
+}
+
+.dark .ant-input{
+  color: #fff;
+}
+
+.dark .ant-input::placeholder{
+  color: #fff !important;
+}
+
+.dark .ant-select-selector{
+  background: #000 !important;
+}
+
+.dark .ant-select-prefix svg{
+  color: #fff !important;
+}
+
+.dark .ant-select-selection-placeholder{
+  color: #fff !important;
+}
+
+.dark .ant-select .ant-select-arrow{
+  color: #fff !important;
+}
+
+.dark .ant-select-selection-item {
+  color: #fff !important;   
+}

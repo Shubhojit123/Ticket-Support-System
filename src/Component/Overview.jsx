@@ -83,7 +83,7 @@ function Overview({ data, del }) {
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             onConfirm={()=>{reStoreData(id);messageApi.success("Data Restored");setTimeout(()=>navigate(-1),1000)}}
           >
-            <p className='flex flex-row gap-1 items-center px-1 py-2 bg-gray-600 hover:bg-gray-900 duration-300 dark:text-white cursor-pointer text-white rounded-lg'>
+            <p className='flex flex-row gap-1 items-center px-2 py-2 bg-gray-600 hover:bg-gray-900 duration-300 dark:text-white cursor-pointer text-white rounded-lg'>
               <MdSettingsBackupRestore />Restore
             </p>
           </Popconfirm>

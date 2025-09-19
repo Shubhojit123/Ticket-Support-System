@@ -8,10 +8,8 @@ import { Button, Input, message, Tag, Tooltip } from 'antd';
 import { VscSend } from "react-icons/vsc";
 import { HappyProvider } from '@ant-design/happy-work-theme';
 import { TicketContext } from './ContextApi';
-import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import { AiOutlineInbox } from "react-icons/ai";
-import Btn from './Btn';
 
 
 function Comments({ data, del }) {
