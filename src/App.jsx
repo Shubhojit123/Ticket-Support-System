@@ -5,6 +5,7 @@ import TicketDetails from './Pages/TicketDetails'
 import {BrowserRouter, Route, Routes} from 'react-router'
 import Deleted from './Pages/Deleted'
 import DeletedTicketDetails from './Pages/DeletedTicketDetails'
+import ErrorPage from './Component/ErrorPage'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/ticket/:id" element={<TicketDetails />} />
         <Route path='/deleted' element={<Deleted/>}/>
          <Route path='/deleted-ticket/:id' element={<DeletedTicketDetails/>}/>
+         <Route path='*' element={<ErrorPage/>}/>
       </Routes>
     </BrowserRouter>
 
