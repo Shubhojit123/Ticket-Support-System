@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { BsCalendar3Fill } from "react-icons/bs"
 import dayjs from 'dayjs'
@@ -97,14 +97,15 @@ function Dragable() {
     }
 
     const navigate = useNavigate()
-    let prvStatus
-    let getId
+    let prvStatus = useRef();
+    let getId = useRef();
     let state
 
     function handelDragStart(e, id, status) {
-        prvStatus = status
-        getId = id
+        prvStatus.current = status
+        getId.current = id;
         e.target.style.opacity = "0.5"
+        console.log(getId.current)
     }
 
     function handelDragEnd(e) {
@@ -112,14 +113,15 @@ function Dragable() {
     }
 
     function handelDrop(item) {
+        console.log(item,prvStatus,getId)
         try {
             state = item
             const updateStatus = datas.map((data) =>
-                data.id === getId ? { ...data, status: state } : data
+                data.id === getId.current ? { ...data, status: state } : data
             )
             localStorage.setItem(STORAGE, JSON.stringify(updateStatus))
             setData(updateStatus)
-            if (state !== prvStatus) {
+            if (state !== prvStatus.current) {
                 messageApi.success("Task Status changed")
             }
         } catch (error) {
@@ -279,11 +281,9 @@ function Dragable() {
                                     </p>
                                 </Tooltip>
 
-                                <Tooltip title={<div className="max-h-[40vh] max-w-[300px] overflow-auto p-3">{data.desc}</div>}>
                                     <p className="text-xs font-semibold text-gray-600 dark:text-gray-100">
                                         {data.desc?.length > 12 ? data.desc.substring(0, 12) + "..." : data.desc}
                                     </p>
-                                </Tooltip>
 
                                 <div className="flex justify-between lg:items-center flex-col lg:flex-row  items-start gap-1.5 lg:gap-0">
                                     <p className="text-xs flex gap-2 font-semibold text-gray-800 dark:text-white">

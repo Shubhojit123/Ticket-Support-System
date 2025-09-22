@@ -37,7 +37,7 @@ function Dashboard() {
  
 
   useEffect(() => {
-    const handleResize = () => setMobile(window.innerWidth < 325);
+    const handleResize = () => setMobile(window.innerWidth < 370);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

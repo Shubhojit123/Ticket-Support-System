@@ -86,8 +86,8 @@ function CardView() {
 
                 <div className='flex flex-row w-[100%] md:w-[55%]  items-center justify-evenly gap-1 md:gap-0 '>
                     <Select
-                        prefix={<GoStack className="text-gray-500"/>}
-                        placeholder={isMobile ? "Priority" : "Select Priority"}                  
+                        prefix={<GoStack className="text-gray-500" />}
+                        placeholder={isMobile ? "Priority" : "Select Priority"}
                         allowClear
                         onChange={(value) => { applyFilter(); setPriority(value) }}
                         className="md:w-[150px] w-[135px] "
@@ -98,8 +98,8 @@ function CardView() {
                     </Select>
 
                     <Select
-                    prefix={<MdOutlineFilterList  className="text-gray-500"/>}
-                        placeholder={isMobile ? "Status" : "Select Status"}   
+                        prefix={<MdOutlineFilterList className="text-gray-500" />}
+                        placeholder={isMobile ? "Status" : "Select Status"}
                         allowClear
                         onChange={(value) => { applyFilter(datas), setStatus(value) }}
                         className="md:w-[150px] w-[135px]"
@@ -143,7 +143,7 @@ function CardView() {
 
                     return (
                         <div className='w-[100%] p-4 shadow-md flex flex-row border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 duration-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white'
-                         key={idx} onClick={isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}
+                            key={idx} onClick={isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}
                             onDoubleClick={!isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}>
                             <div className='w-[100%] flex flex-col gap-3'>
                                 <div className='flex flex-row gap-2 justify-between items-center '>
@@ -159,12 +159,12 @@ function CardView() {
                                     <div>
                                         <Tooltip title={data.id}><Tag className='cursor-pointer' onClick={async () => { await navigator.clipboard.writeText(data.id); messageApi.success("ID Copied") }}>#{data.id.substring(0, 6)}</Tag></Tooltip>
                                         <p className='flex flex-row gap-1 py-3 text-xs font-semibold items-center'>
-                                        <PiSubtitlesBold/>
-                                             {(() => {
+                                            <PiSubtitlesBold />
+                                            {(() => {
                                                 if (isMobile) {
                                                     return data.title.length > 10 ? data.title.substring(0, 10) + "..." : data.title;
                                                 }
-                                                else{
+                                                else {
                                                     return data.title.length > 60 ? data.title.substring(0, 60) + "..." : data.title;
                                                 }
                                             })()}
@@ -175,7 +175,7 @@ function CardView() {
                                                 if (isMobile) {
                                                     return data.desc.length > 10 ? data.desc.substring(0, 10) + "..." : data.desc;
                                                 }
-                                                else{
+                                                else {
                                                     return data.desc.length > 60 ? data.desc.substring(0, 60) + "..." : data.desc;
                                                 }
                                             })()}
@@ -184,17 +184,25 @@ function CardView() {
 
                                     </div>
                                     <div className='flex flex-col justify-between items-end'>
-                                        <p className='flex flex-row gap-2 text-xs items-center'>{getStatusIcon(data.status)}{data.status}</p>
-                                        <Dropdown menu={{ items, onClick: (e) => handelChangeStatus(e, data.id) }} >
-
-                                            <a onClick={e => e.preventDefault()} style={{ cursor: "pointer" }}>
+                                        <p className='flex flex-row gap-2 text-xs items-center'>
+                                            {getStatusIcon(data.status)}
+                                            {data.status}
+                                        </p>
+                                        {!isMobile && <Dropdown menu={{ items, onClick: (e) => handelChangeStatus(e, data.id) }}
+                                            trigger={['click']}    
+                                        >
+                                            <span
+                                                onClick={(e) => e.stopPropagation()} 
+                                                style={{ cursor: "pointer" }}
+                                            >
                                                 <Space>
                                                     Change Status
                                                     <DownOutlined />
                                                 </Space>
-                                            </a>
-                                        </Dropdown>
+                                            </span>
+                                        </Dropdown>}
                                     </div>
+
                                 </div>
                             </div>
                         </div>

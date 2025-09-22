@@ -100,13 +100,13 @@ function Overview({ data, del }) {
       </div>
 
 
-      <div className="p-4 w-full shadow-md bg-white dark:bg-gray-600 flex justify-center rounded-md h-full ">
+      <div className="p-4 w-full shadow-md bg-white dark:bg-gray-800 flex justify-center items-center rounded-md">
         {data.image && (
-          <div className="w-full md:w-[55%] md:h-[55%] ">
+          <div className="w-full md:w-2/3 lg:w-1/2">
             <img
               src={data.image}
               alt="Ticket"
-              className="w-full h-auto rounded-md object-cover"
+              className="w-full h-auto max-h-[400px] rounded-md object-contain"
             />
           </div>
         )}
@@ -120,7 +120,7 @@ function Overview({ data, del }) {
           className="relative flex items-center text-blue-600 font-semibold text-sm md:hidden"
         >
           <Badge count={data.comments.length}>
-          <CommentOutlined className="text-2xl text-blue-700" />
+            <CommentOutlined className="text-2xl text-blue-700" />
           </Badge>
         </button>
 
