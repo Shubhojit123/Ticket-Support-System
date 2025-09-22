@@ -37,7 +37,7 @@ function Comments({ data, del }) {
     console.log(del)
     return (
 
-        <div className='w-[100%] h-[100%] p-2 flex flex-col gap-2 dark:bg-black'>
+        <div className='w-[100%] h-[100%] p-2 flex flex-col gap-2 dark:bg-black overflow-hidden'>
             {contextHolder}
             <div className='bg-white border-b border-slate-200 p-4 flex items-center gap-3 shadow-sm rounded-md dark:bg-black'>
                 <div className='p-2 bg-blue-100 rounded-lg'>

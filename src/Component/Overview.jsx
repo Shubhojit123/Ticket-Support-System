@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { FaUser } from "react-icons/fa6"
 import { TicketContext } from './ContextApi'
 import { CommentOutlined, DownOutlined, QuestionCircleOutlined } from '@ant-design/icons'
-import { Dropdown, Space, Drawer, Button, Popconfirm, message } from 'antd'
+import { Dropdown, Space, Drawer, Button, Popconfirm, message, Badge } from 'antd'
 import Comments from './Comments'
 import { MdDelete, MdSettingsBackupRestore } from 'react-icons/md'
 import { useNavigate, useParams, useSearchParams } from 'react-router'
@@ -52,7 +52,7 @@ function Overview({ data, del }) {
 
   return (
 
-    <div className=' h-full flex flex-col gap-4 p-2 md:p-4 w-full dark:bg-black'>
+    <div className=' h-full flex flex-col gap-4 p-2 md:p-4 w-full dark:bg-black '>
       {contextHolder}
       <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-white dark:bg-gray-800 dark:text-white rounded-md shadow-sm w-full'>
         <div className='flex items-center gap-3'>
@@ -100,15 +100,18 @@ function Overview({ data, del }) {
       </div>
 
 
-       {data.image && (
-        <div className="p-4 w-full bg-white dark:bg-gray-800 rounded-md shadow">
-          <img
-            src={data.image}
-            alt="Ticket"
-            className="w-full max-w-md h-auto rounded-md object-contain"
-          />
-        </div>
-      )}
+      <div className="p-4 w-full shadow-md bg-white dark:bg-gray-600 flex justify-center rounded-md h-full ">
+        {data.image && (
+          <div className="w-full md:w-[55%] md:h-[55%] ">
+            <img
+              src={data.image}
+              alt="Ticket"
+              className="w-full h-auto rounded-md object-cover"
+            />
+          </div>
+        )}
+      </div>
+
 
 
       <div className="flex items-center  gap-6 p-2 justify-center">
@@ -116,10 +119,9 @@ function Overview({ data, del }) {
           onClick={() => setCommentDrawerOpen(true)}
           className="relative flex items-center text-blue-600 font-semibold text-sm md:hidden"
         >
-          <CommentOutlined className="text-2xl" />
-          <span className="absolute left-4 top-0 text-xs h-5 w-5 rounded-full flex justify-center items-center bg-blue-50">
-            {data.comments.length}
-          </span>
+          <Badge count={data.comments.length}>
+          <CommentOutlined className="text-2xl text-blue-700" />
+          </Badge>
         </button>
 
         <Popconfirm
