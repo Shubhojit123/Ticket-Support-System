@@ -14,7 +14,7 @@ function Overview({ data, del }) {
   const allStatuses = ["Open", "Completed", "Processing"]
   const [commentDrawerOpen, setCommentDrawerOpen] = useState(false);
   const navigate = useNavigate()
-  const {id} = useParams();
+  const { id } = useParams();
   const items = [
     {
       key: '1',
@@ -81,7 +81,7 @@ function Overview({ data, del }) {
             title="Restore the Ticket"
             description="Are you Restore this Ticket?"
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            onConfirm={()=>{reStoreData(id);messageApi.success("Data Restored");setTimeout(()=>navigate(-1),1000)}}
+            onConfirm={() => { reStoreData(id); messageApi.success("Data Restored"); setTimeout(() => navigate(-1), 1000) }}
           >
             <p className='flex flex-row gap-1 items-center px-2 py-2 bg-gray-600 hover:bg-gray-900 duration-300 dark:text-white cursor-pointer text-white rounded-lg'>
               <MdSettingsBackupRestore />Restore
@@ -90,12 +90,26 @@ function Overview({ data, del }) {
         }
 
       </div>
-      <div className='p-4 w-full bg-white rounded-md shadow-sm flex flex-col gap-2 max-h-[45vh] overflow-auto dark:bg-gray-800 dark:text-white'>
-        <p className='text-base sm:text-lg font-semibold break-words'>Description</p>
-        <p className='text-xs sm:text-sm text-gray-600 break-words whitespace-normal dark:text-gray-100'>
+      <div className="p-4 w-full bg-white dark:bg-gray-800 dark:text-white rounded-md shadow flex flex-col gap-2">
+        <p className="text-base sm:text-lg font-semibold break-words">
+          Description
+        </p>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-100 break-words whitespace-normal">
           {data.desc}
         </p>
       </div>
+
+
+       {data.image && (
+        <div className="p-4 w-full bg-white dark:bg-gray-800 rounded-md shadow">
+          <img
+            src={data.image}
+            alt="Ticket"
+            className="w-full max-w-md h-auto rounded-md object-contain"
+          />
+        </div>
+      )}
+
 
       <div className="flex items-center  gap-6 p-2 justify-center">
         <button

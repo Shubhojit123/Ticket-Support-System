@@ -5,15 +5,16 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import { TicketContext } from './ContextApi';
-import { Input, message, Select } from 'antd';
+import { Button, Input, message, Select, Upload } from 'antd';
 import { MdAssignmentAdd, MdBackHand } from 'react-icons/md';
 import { RiMailSendLine } from 'react-icons/ri';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
 function TicketForm() {
     const [messageApi, contextHolder] = message.useMessage()
-    const { getAllTickets,addNotification,setTicket } = useContext(TicketContext);
+    const { getAllTickets, addNotification, setTicket } = useContext(TicketContext);
 
     useEffect(() => {
         getAllTickets();
@@ -26,7 +27,7 @@ function TicketForm() {
     const [option, setOption] = useState("");
     const [copied, setCopied] = useState(false);
     const [name, setName] = useState("");
-
+    const [image, setImage] = useState("")
     const idShow = useRef();
     const id = uuidv4();
 
@@ -34,6 +35,20 @@ function TicketForm() {
     const descRef = useRef();
     const optionRef = useRef();
     const nameRef = useRef();
+
+
+    const handleImageUpload = (file) => {
+        if (file.size > 2 * 1024 * 1024) {
+            messageApi.error("Image size should be less than 2MB");
+            return false;
+        }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+        return false;
+    };
 
     const handelSubmit = async (e) => {
         e.preventDefault();
@@ -75,6 +90,7 @@ function TicketForm() {
                 priority: optionTrim,
                 status: "Open",
                 time: Date.now(),
+                image,
                 comments: []
             };
 
@@ -83,12 +99,13 @@ function TicketForm() {
             messageApi.success("We will contact Soon");
             const NotifyMsg = `Ticket Created by ${nameTrim}`;
             const NotifyDesc = `ID is ${id}`;
-            addNotification(NotifyMsg,NotifyDesc);
+            addNotification(NotifyMsg, NotifyDesc);
             setTicket(id)
             setTitle("");
             setDesc("");
             setName("");
             setOption("")
+            setImage("");
             getAllTickets();
         } catch (error) {
             toast.error("Internal Error");
@@ -194,14 +211,35 @@ function TicketForm() {
                             )}
                         </div>
 
-                       <div className=' w-[100%] flex justify-center'>
-                             <button
-                            type="submit"
-                            className="py-2 px-2  flex flex-row items-center text-xs font-bold rounded-lg text-blue-600 bg-blue-100 cursor-pointer hover:bg-blue-200 duration-200 w-[100%] justify-center gap-4 ">
-                            <p className='p-3 group-hover:text-gray-50 scale-135'>Create Ticket</p>
-                            <p className='p-2 scale-250 group-hover:text-gray-50 '><RiMailSendLine/></p>
-                        </button>
-                       </div>
+                        <div className="space-y-2">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-white">
+                                Attach Image (optional)
+                            </label>
+                            <Upload
+                                beforeUpload={handleImageUpload}
+                                showUploadList={false}
+                                accept="image/*"
+                            >
+                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                            </Upload>
+                            {image && (
+                                <img
+                                    src={image}
+                                    alt="preview"
+                                    className="mt-2 w-32 rounded-md border"
+                                />
+                            )}
+                        </div>
+
+
+                        <div className=' w-[100%] flex justify-center'>
+                            <button
+                                type="submit"
+                                className="py-2 px-2  flex flex-row items-center text-xs font-bold rounded-lg text-blue-600 bg-blue-100 cursor-pointer hover:bg-blue-200 duration-200 w-[100%] justify-center gap-4 ">
+                                <p className='p-3 group-hover:text-gray-50 scale-135'>Create Ticket</p>
+                                <p className='p-2 scale-250 group-hover:text-gray-50 '><RiMailSendLine /></p>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

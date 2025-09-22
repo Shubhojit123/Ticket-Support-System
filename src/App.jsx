@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/user" element={<CreateTicket />} />
+        <Route path="/create" element={<CreateTicket />} />
         <Route path="/ticket/:id" element={<TicketDetails />} />
         <Route path='/deleted' element={<Deleted/>}/>
          <Route path='/deleted-ticket/:id' element={<DeletedTicketDetails/>}/>

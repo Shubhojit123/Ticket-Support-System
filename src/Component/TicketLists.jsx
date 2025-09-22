@@ -8,7 +8,7 @@ import { LuBox } from "react-icons/lu";
 import { TicketContext } from './ContextApi';
 import { Table, Avatar, Tooltip, Input, Select, Badge } from "antd";
 import { AudioOutlined } from '@ant-design/icons';
-import { GoStack } from 'react-icons/go';
+import { GoInbox, GoStack } from 'react-icons/go';
 import { MdOutlineFilterList } from 'react-icons/md';
 import { CiSearch } from 'react-icons/ci';
 
@@ -198,7 +198,14 @@ function TicketLists() {
                 </Select>
             </div>
 
-            <div className="w-[96%] h-[73vh] mt-4 bg-white dark:bg-gray-900 flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
+            {filterData.length < 1 &&
+                <div className='flex justify-center items-center h-[50vh] flex-col gap-4 '>
+                    <p className='text-7xl text-gray-600 '><GoInbox /></p>
+                    <p className='font-semibold text-gray-600'>No Data</p>
+                </div>}
+
+
+            {filterData.length > 0 && <div className="w-[96%] h-[73vh] mt-4 bg-white dark:bg-gray-900 flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
                 <Table
                     dataSource={filterData}
                     className="cursor-pointer ant-table-no-hover"
@@ -213,6 +220,7 @@ function TicketLists() {
                     rowClassName={() => "dark:bg-gray-900"}
                 />
             </div>
+            }
         </>
     )
 }
