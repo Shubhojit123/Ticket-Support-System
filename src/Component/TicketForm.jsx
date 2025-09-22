@@ -47,7 +47,6 @@ function TicketForm() {
             setImage(reader.result);
         };
         reader.readAsDataURL(file);
-        return false;
     };
 
     const handelSubmit = async (e) => {
