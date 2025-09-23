@@ -6,20 +6,19 @@ import { BsCircleHalf } from "react-icons/bs";
 import { IoCheckmarkCircleSharp, IoCalendarClear } from "react-icons/io5";
 import { LuBox } from "react-icons/lu";
 import { TicketContext } from './ContextApi';
-import { Table, Avatar, Tooltip, Input, Select, Badge } from "antd";
-import { AudioOutlined } from '@ant-design/icons';
+import { Table, Avatar, Tooltip, Input, Select, Badge, message } from "antd";
+import { AudioOutlined, CopyOutlined } from '@ant-design/icons';
 import { GoInbox, GoStack } from 'react-icons/go';
 import { MdOutlineFilterList } from 'react-icons/md';
 import { CiSearch } from 'react-icons/ci';
 
 
 function TicketLists() {
-    const { Search } = Input;
     const { Option } = Select;
-
+    const [messageApi, contextHolder] = message.useMessage();
 
     const navigate = useNavigate();
-    const { getAllTickets, datas ,getStatusIcon} = useContext(TicketContext);
+    const { getAllTickets, datas, getStatusIcon } = useContext(TicketContext);
 
     useEffect(() => {
         getAllTickets();
@@ -42,9 +41,7 @@ function TicketLists() {
             const lowerValue = search.toLowerCase();
             result = result.filter(
                 item =>
-                    item.title?.toLowerCase().includes(lowerValue) ||
-                    item.name?.toLowerCase().includes(lowerValue)
-            );
+                    item.title?.toLowerCase().includes(lowerValue));
         }
 
         if (priority) {
@@ -68,13 +65,19 @@ function TicketLists() {
             title: `ID (Total ${datas.length})`,
             dataIndex: "id",
             key: "id",
-            render: (id) => (
-                <Tooltip title={id}>
-                    <div className="flex items-center gap-2 dark:text-white">
-                        <Avatar src={`https://ui-avatars.com/api/?name=${name || "John"}&background=random&color=fff`} />
-                        {id.substring(0, 6)}...
-                    </div>
-                </Tooltip>
+            render: (id,record) => (
+                <div className="flex items-center gap-2 dark:text-white">
+                    <Avatar src={`https://ui-avatars.com/api/?name=${record.name || "John"}&background=random&color=fff`} />
+                    <p className='w-[80px]'>{id.substring(0, 9)}...</p>
+                    <span className='text-sm hover:text-green-500 duration-300 cursor-pointer'
+                        onClick={async (e) => {
+                            e.stopPropagation();
+                            await navigator.clipboard.writeText(id); messageApi.success("Id Copied")
+                        }}
+                    >
+                        <CopyOutlined />
+                    </span>
+                </div >
             ),
         },
         {
@@ -82,14 +85,14 @@ function TicketLists() {
             dataIndex: "name",
             key: "name",
             render: (name) => (
-                <p className='text-xs dark:text-white font-semibold'>{name}</p>
+                <p className='text-xs dark:text-white '>{name}</p>
             ),
         },
         {
             title: "Title",
             dataIndex: "title",
             key: "title",
-            render: (title) => <Tooltip title={title}><span className='dark:text-white'>{title.length > 10 ? title.substring(0, 10) + "..." : title}</span>,</Tooltip>
+            render: (title) => <Tooltip title={title}><span className='dark:text-white font-semibold'>{title.length > 10 ? title.substring(0, 10) + "..." : title}</span>,</Tooltip>
         },
         {
             title: "Description",
@@ -155,6 +158,7 @@ function TicketLists() {
     return (
         <>
             <div className='w-[96%] mt-4 flex items-center justify-center gap-4'>
+                {contextHolder}
                 <Input
                     prefix={<CiSearch className="text-gray-500" />}
                     placeholder="Search"
@@ -199,7 +203,6 @@ function TicketLists() {
             {filterData.length > 0 && <div className="w-[96%] h-[73vh] mt-4 bg-white dark:bg-gray-900 flex items-center px-4 rounded-lg shadow-sm justify-center overflow-hidden">
                 <Table
                     dataSource={filterData}
-                    className="cursor-pointer ant-table-no-hover"
                     scroll={{ x: "max-content" }}
                     columns={columns}
                     rowKey="id"
@@ -208,7 +211,7 @@ function TicketLists() {
                     onRow={(record) => ({
                         onClick: () => navigate(`/ticket/${record.id}`),
                     })}
-                    rowClassName={() => "dark:bg-gray-900"}
+                    rowClassName={() => "dark:bg-gray-900 cursor-pointer"}
                 />
             </div>
             }

@@ -63,9 +63,7 @@ function Dragable() {
             const lowerValue = search.toLowerCase();
             result = result.filter(
                 item =>
-                    item.title?.toLowerCase().includes(lowerValue) ||
-                    item.name?.toLowerCase().includes(lowerValue)
-            );
+                    item.title?.toLowerCase().includes(lowerValue));
         }
         if (priority) {
             result = result.filter(
@@ -244,12 +242,14 @@ function Dragable() {
                         onDragOver={handelDragover}
                         onDrop={() => handelDrop(item)}
                     >
-                        <div className='flex items-center justify-center text-xl font-semibold  '>{item}</div>
+                        <div className='flex items-center justify-center text-xl font-semibold p-4 border-dashed border-2 rounded-md'>
+                            <p className='flex flex-row gap-2'><p>{item}</p><p>({getCol(item).length})</p></p>
+                        </div>
 
                         {getCol(item).map((data, idx) => (
                             <div
                                 key={idx}
-                                className="w-full max-h-[260px] border border-gray-200 shadow-md dark:bg-black  bg-white rounded-lg flex flex-col gap-3 cursor-move p-3"
+                                className="w-full max-h-[260px] border border-gray-200 shadow-md dark:bg-black  bg-white rounded-lg flex flex-col gap-3 cursor-move p-3 "
                                 draggable
                                 onDragStart={(e) => handelDragStart(e, data.id, data.status)}
                                 onDragEnd={handelDragEnd}

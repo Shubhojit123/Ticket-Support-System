@@ -13,6 +13,7 @@ import { PiSubtitlesBold } from 'react-icons/pi';
 const { Option } = Select;
 
 function CardView() {
+ 
     const [messageApi, contextHolder] = message.useMessage()
     const [isMobile, setMobile] = useState(window.innerWidth < 450);
 
@@ -48,9 +49,7 @@ function CardView() {
             const lowerValue = search.toLowerCase();
             result = result.filter(
                 item =>
-                    item.title?.toLowerCase().includes(lowerValue) ||
-                    item.name?.toLowerCase().includes(lowerValue)
-            );
+                    item.title?.toLowerCase().includes(lowerValue) );
         }
 
         if (priority) {
@@ -142,6 +141,7 @@ function CardView() {
                     ];
 
                     return (
+
                         <div className='w-[100%] p-4 shadow-md flex flex-row border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 duration-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white'
                             key={idx} onClick={isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}
                             onDoubleClick={!isMobile ? () => navigate(`/ticket/${data.id}`) : undefined}>
@@ -189,10 +189,9 @@ function CardView() {
                                             {data.status}
                                         </p>
                                         {!isMobile && <Dropdown menu={{ items, onClick: (e) => handelChangeStatus(e, data.id) }}
-                                            trigger={['click']}    
                                         >
                                             <span
-                                                onClick={(e) => e.stopPropagation()} 
+                                                onClick={(e) => e.stopPropagation()}
                                                 style={{ cursor: "pointer" }}
                                             >
                                                 <Space>

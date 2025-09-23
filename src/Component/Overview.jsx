@@ -100,29 +100,31 @@ function Overview({ data, del }) {
       </div>
 
 
-      <div className="p-4 w-full shadow-md bg-white dark:bg-gray-800 flex justify-center items-center rounded-md">
-        {data.image && (
-          <div className="w-full md:w-2/3 lg:w-1/2">
-            <img
-              src={data.image}
-              alt="Ticket"
-              className="w-full h-auto max-h-[400px] rounded-md object-contain"
-            />
-          </div>
-        )}
-      </div>
+      {data.image && (<div className="p-4 w-full shadow-md bg-white dark:bg-gray-800 flex justify-center items-center rounded-md">
+        <div className="w-full md:w-2/3 lg:w-1/2">
+          <img
+            src={data.image}
+            alt="Ticket"
+            className="w-full h-auto max-h-[400px] rounded-md object-contain"
+          />
+        </div>
+      </div>)}
 
 
 
       <div className="flex items-center  gap-6 p-2 justify-center">
         <button
           onClick={() => setCommentDrawerOpen(true)}
-          className="relative flex items-center text-blue-600 font-semibold text-sm md:hidden"
+          className="relative flex items-center font-semibold text-sm md:hidden"
         >
-          <Badge count={data.comments.length}>
-            <CommentOutlined className="text-2xl text-blue-700" />
+          <Badge
+            count={data.comments.length}
+            className=" dark:bg-blue-200 rounded-md"
+          >
+            <CommentOutlined className="text-2xl text-blue-700 dark:text-blue-200 dark:p-1 rounded-md" />
           </Badge>
         </button>
+
 
         <Popconfirm
           title="Delete the Ticket"

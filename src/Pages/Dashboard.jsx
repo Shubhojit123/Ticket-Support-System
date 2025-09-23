@@ -135,7 +135,7 @@ function Dashboard() {
         width={500}
         onClose={() => setOpen(false)}
       >
-        <div className='w-[100%] h-[100%] '>
+        <div className='w-[100%] h-[100%] px-3'>
           <TicketForm />
         </div>
       </Drawer>
@@ -165,11 +165,12 @@ function Dashboard() {
             <span className=" text-blue-600 p-2 rounded-md">
               <IoNotifications className=' bg-blue-200 p-1 text-blue-600 scale-190 rounded-md' />
             </span>
-            <span className='dark:text-white'>Notification</span>
+            <span className='dark:text-white '>Notification</span>
           </p>
         </div>}
         open={notification}
         onClose={()=>setNotification(false)}
+        
       >
         <NotificationCard notifyData={notifyData}/>
       </Drawer>

@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const TicketContext = createContext();
 
 const ContextApi = ({ children }) => {
+
   const [datas, setData] = useState([]);
   const [isTablet, setIsTablet] = useState(window.innerWidth < 770);
   const STORAGE = import.meta.env.VITE_STORAGE;
@@ -15,27 +16,25 @@ const ContextApi = ({ children }) => {
   const NOTIFICATION = import.meta.env.VITE_CREATE_NOTIFICATION;
   const [notifyData, setNotifyData] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
-  const [ticketId,setTicketId] = useState("");
+  const [ticketId, setTicketId] = useState("");
   
 
   function getAllTickets() {
     try {
       const totalTickets = JSON.parse(localStorage.getItem(STORAGE)) || [];
-      setData(totalTickets.reverse());
+      setData(totalTickets);
     } catch (error) {
       console.log(error);
     }
   }
 
-  function setTicket(id)
-  {
-      try {
-        setTicketId(id);
-      } catch (error) {
-        console.log(error)
-      }
+  function setTicket(id) {
+    try {
+      setTicketId(id);
+    } catch (error) {
+      console.log(error)
+    }
   }
-
 
 
   useEffect(() => {
@@ -154,16 +153,7 @@ const ContextApi = ({ children }) => {
       if (del) {
         deletes = deletes.filter(d => d.id !== id);
         localStorage.setItem(DELSTORAGE, JSON.stringify(deletes));
-        const notificationMsg = {
-          id: uuidv4(),
-          msg: `Tikcet Parmanent Deleted  `,
-          time: Date.now(),
-          desc: id,
-          read: false
-        }
-        const notification = JSON.parse(localStorage.getItem(NOTIFICATION)) || [];
-        notification.push(notificationMsg);
-        localStorage.setItem(NOTIFICATION, JSON.stringify(notification));
+        addNotification("Tikcet Parmanent Deleted",id);
         return;
       }
 
@@ -176,25 +166,14 @@ const ContextApi = ({ children }) => {
       if (deletedTicket) {
         deletes.push(deletedTicket);
         localStorage.setItem(DELSTORAGE, JSON.stringify(deletes));
-
         tickets = tickets.filter(ticket => ticket.id !== id);
         localStorage.setItem(STORAGE, JSON.stringify(tickets));
-        const notificationMsg = {
-          id: uuidv4(),
-          msg: `Tikcet Deleted  `,
-          time: Date.now(),
-          desc: id,
-          read: false
-        }
-        const notification = JSON.parse(localStorage.getItem(NOTIFICATION)) || [];
-        notification.push(notificationMsg);
-        localStorage.setItem(NOTIFICATION, JSON.stringify(notification));
+        addNotification("Ticket Deleted",id)
       }
     } catch (error) {
       console.log(error);
     }
   }
-
 
 
   async function updateStatus(id, newStatus) {
@@ -251,7 +230,7 @@ const ContextApi = ({ children }) => {
       localStorage.setItem(STORAGE, JSON.stringify(updatedTickets));
 
     } catch (error) {
-      console.error("Error while restoring ticket:", error);
+      console.error(error);
     }
   };
 
@@ -259,7 +238,7 @@ const ContextApi = ({ children }) => {
     <TicketContext.Provider value={{
       getAllTickets, datas, setData, addComment, getPriorityColor, notifyData, notificationCount, viewAllNotification,
       getStatusIcon, updateStatus, isTablet, deleteTicket, reStoreData, addNotification,
-      deleteNotification, viewNotification, deleteAllNotification,ticketId,setTicketId,setTicket
+      deleteNotification, viewNotification, deleteAllNotification, ticketId, setTicketId, setTicket
     }}>
       {children}
     </TicketContext.Provider>

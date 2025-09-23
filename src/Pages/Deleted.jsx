@@ -74,11 +74,11 @@ function Deleted() {
   const navigate = useNavigate();
   return (
     <div className='w-[100%] h-[100vh] flex flex-col gap-4 p-4'>
-      <div className='w-full py-4 shadow-md flex flex-row  items-center justify-between px-4 '>
+      <div className='w-full py-4 shadow-md flex flex-row  items-center justify-between px-4 rounded-md'>
         <div className='flex flex-row gap-1.5 items-center cursor-pointer text-blue-600 hover:text-blue-200 duration-800 ' onClick={()=>navigate(-1)}>
           <p><FaArrowLeft /></p><p>Back</p>
         </div>
-            <div className='text-xl font-semibold dark:text-white flex flex-row gap-1.5 items-center'>
+            <div className='text-sm md:text-xl font-semibold dark:text-white flex flex-row gap-1.5 items-center'>
               <p><FaTrashRestoreAlt/></p>
             <p>{`Deleted Ticket List (${datas.length})`}</p>
             </div>

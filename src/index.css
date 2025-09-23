@@ -56,16 +56,25 @@ body{
   font-weight:600;
 }
 
+.dark .ant-segmented-item:hover{
+  color: #1E88E5 !important;
+}
+
 .dark .ant-progress-inner{
   background-color: #1F2937 !important;
 }
 
 
-
 .dark .ant-segmented-item-selected
 {
+  background-color: #fff !important;
+  color: black !important;
+}
+
+.dark .ant-segmented-item-selected:hover
+{
   background-color: #fff;
-  color: black;
+  color: black !important;
 }
 
 .dark .ant-progress-text{
@@ -143,4 +152,11 @@ body{
 ::-webkit-scrollbar-thumb {
   background-color: rgb(163, 163, 163);
   border-radius: 50px;
+}
+
+.dark .ant-pagination-item :hover{
+    background: #fff;
+    color: #000;
+    border-radius: 5px;
+    font-weight: 400;
 }
