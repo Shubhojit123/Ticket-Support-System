@@ -52,7 +52,7 @@ function Overview({ data, del }) {
 
   return (
 
-    <div className=' h-full flex flex-col gap-4 p-2 md:p-4 w-full dark:bg-black '>
+    <div className=' h-full flex flex-col gap-4 p-2 md:p-4 w-full dark:bg-black  '>
       {contextHolder}
       <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-white dark:bg-gray-800 dark:text-white rounded-md shadow-sm w-full'>
         <div className='flex items-center gap-3'>

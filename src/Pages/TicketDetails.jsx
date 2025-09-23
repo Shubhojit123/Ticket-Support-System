@@ -52,7 +52,7 @@ function TicketDetails() {
   return (
     <>
       {contextHolder}
-     <div className="flex flex-col-reverse md:flex-row w-full h-[100vh] gap-4 sm:mb-20  bg-white dark:bg-black">
+     <div className="flex flex-col-reverse md:flex-row w-full h-[100vh] gap-4  bg-white dark:bg-black">
 
   <div className="w-full sm:w-[50%] md:w-[40%] lg:w-[25%] h-[60vh] md:h-auto border border-gray-100 rounded-md overflow-auto hidden md:block dark:border-gray-800">
     <Comments data={idData} />
