@@ -19,7 +19,7 @@ function TicketLists() {
 
 
     const navigate = useNavigate();
-    const { getAllTickets, datas, setData } = useContext(TicketContext);
+    const { getAllTickets, datas ,getStatusIcon} = useContext(TicketContext);
 
     useEffect(() => {
         getAllTickets();
@@ -62,16 +62,7 @@ function TicketLists() {
         setFiltedData(result);
     }
 
-    function getStatusIcon(data) {
-        switch (data) {
-            case "Open":
-                return <FaRegCircle className='text-xl text-red-800' />
-            case "Processing":
-                return <BsCircleHalf className='text-xl text-yellow-400' />
-            case "Completed":
-                return <IoCheckmarkCircleSharp className='text-xl text-green-500' />
-        }
-    }
+
     const columns = [
         {
             title: `ID (Total ${datas.length})`,
@@ -123,7 +114,7 @@ function TicketLists() {
                             ? "text-green-600"
                             : priority === "Medium"
                                 ? "text-yellow-400"
-                                : "text-red-800"
+                                : "text-red-500"
                             }`}
                     />
                     {priority}

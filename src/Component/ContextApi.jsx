@@ -16,7 +16,7 @@ const ContextApi = ({ children }) => {
   const [notifyData, setNotifyData] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   const [ticketId,setTicketId] = useState("");
-
+  
 
   function getAllTickets() {
     try {
@@ -227,7 +227,7 @@ const ContextApi = ({ children }) => {
   function getStatusIcon(data) {
     switch (data) {
       case "Open":
-        return <FaRegCircle className='text-xl text-red-800' />
+        return <FaRegCircle className='text-xl text-red-500' />
       case "Processing":
         return <BsCircleHalf className='text-xl text-yellow-400' />
       case "Completed":

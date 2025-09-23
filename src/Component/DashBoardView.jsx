@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TicketContext } from "./ContextApi";
-import { FaTicketSimple } from "react-icons/fa6";
+import { FaRecycle, FaTicketSimple } from "react-icons/fa6";
 import { FaRegCircle } from "react-icons/fa";
 import { PiCircleHalfFill } from "react-icons/pi";
 import { GoCheckCircleFill } from "react-icons/go";
@@ -126,7 +126,7 @@ function DashBoardView() {
             onClick={()=> navigate("/deleted")}
          >
           <p className="flex flex-row items-center gap-3">
-            <FcDeleteDatabase className="text-xl" />
+            <FaRecycle className="text-xl" />
             <span>Total Deleted ({deletedData})</span>
           </p>
         </div>

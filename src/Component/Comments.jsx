@@ -19,12 +19,13 @@ function Comments({ data, del }) {
     const messagesEndRef = useRef(null);
     const [commentText, setComment] = useState("");
     const { addComment, isTablet } = useContext(TicketContext);
+    const commentTextTrim = commentText.trim();
     function handelComment(id) {
-        if (commentText.length < 1) {
+        if (commentTextTrim.length < 1) {
             messageApi.info("Please enter the Comment");
             return;
         }
-        addComment(id, commentText);
+        addComment(id, commentTextTrim);
         setComment("");
     }
 

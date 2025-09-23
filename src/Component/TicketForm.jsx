@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { IoIosSend } from "react-icons/io";
-import { FaCopy } from "react-icons/fa6";
-import { AiOutlineCheck } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import { TicketContext } from './ContextApi';
@@ -20,15 +17,12 @@ function TicketForm() {
         getAllTickets();
     }, []);
 
-    const NOTIFICATION = import.meta.env.VITE_CREATE_NOTIFICATION;
 
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [option, setOption] = useState("");
-    const [copied, setCopied] = useState(false);
     const [name, setName] = useState("");
     const [image, setImage] = useState("")
-    const idShow = useRef();
     const id = uuidv4();
 
     const titleRef = useRef();
@@ -112,14 +106,6 @@ function TicketForm() {
         }
     };
 
-    const copyToClipboard = async (id) => {
-        try {
-            await navigator.clipboard.writeText(id);
-            setCopied(true);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     return (
         <>
@@ -210,7 +196,8 @@ function TicketForm() {
                             )}
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="flex flex-row gap-2">
+                           <div className='space-y-2'>
                             <label className="block text-sm font-semibold text-gray-700 dark:text-white">
                                 Attach Image (optional)
                             </label>
@@ -221,11 +208,12 @@ function TicketForm() {
                             >
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
+                            </div> 
                             {image && (
                                 <img
                                     src={image}
                                     alt="preview"
-                                    className="mt-2 w-32 rounded-md border"
+                                    className="mt-2 w-32 rounded-md border max-h-40 object-contain"
                                 />
                             )}
                         </div>

@@ -1,6 +1,6 @@
 import { message, notification, Popconfirm } from 'antd'
 import dayjs from 'dayjs'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { FaRegClock } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { IoCheckmark } from 'react-icons/io5'
@@ -12,6 +12,12 @@ import ContextApi, { TicketContext } from './ContextApi'
 function NotificationCard({ notifyData }) {
   const [messageApi, contextHolder] = message.useMessage()
   const { deleteNotification, viewNotification, viewAllNotification, deleteAllNotification } = useContext(TicketContext);
+  const notificationEndRef = useRef();
+
+  useEffect(()=>{
+    notificationEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  },[])
+
   if(notifyData.length < 1)
   {
     return(
@@ -34,6 +40,7 @@ function NotificationCard({ notifyData }) {
           <div
             key={notification.id}
             className="p-4 rounded-xl bg-white dark:bg-gray-800 shadow-sm flex flex-col gap-2 relative"
+            ref={notificationEndRef}
           >
            
               <RxCross2 onClick={()=>deleteNotification(notification.id)}
