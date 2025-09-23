@@ -6,7 +6,7 @@ import Dragable from '../Component/Dragable';
 import { Badge, Button, Drawer, Tooltip } from "antd";
 import { FiPlus } from "react-icons/fi";
 import TicketForm from "../Component/TicketForm"
-import logo from "../assets/logo.png"
+import logo from "../assets/ticket-svgrepo-com.svg"
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../Redux/Slice";
 import { Segmented } from 'antd';
@@ -88,7 +88,7 @@ function Dashboard() {
             <div className="flex items-center gap-4" onClick={() => setMenuOpen(true)}>
               <IoMdMenu className='cursor-pointer dark:text-white md:text-xl text-sm' />
               {!isMobile && <img src={logo} className='w-9 h-9 ' />}
-              <h1 className="md:text-lg font-semibold text-gray-700 sm:text-sm dark:text-white">Ticketing</h1>
+              <h1 className="md:text-xl font-semibold text-gray-700 sm:text-sm dark:text-white"><span className='text-xl md:text-3xl font-bold text-blue-600'>R</span>esolve<sub className='text-sm font-black text-red-500'>X</sub></h1>
             </div>
 
 
@@ -113,7 +113,7 @@ function Dashboard() {
               </div>
 
 
-              <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center py-2 px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
+              <p className='text-sm md:test-xs font-semibold flex flex-row gap-1 items-center p-2 md:py-2 md:px-3 rounded-lg cursor-pointer text-blue-600 bg-blue-100 hover:bg-blue-200 duration-200' onClick={() => setOpen(true)}>
                 <p><IoMdAdd /></p><p>Add</p></p>
             </div>
 
@@ -170,7 +170,7 @@ function Dashboard() {
         </div>}
         open={notification}
         onClose={()=>setNotification(false)}
-        
+
       >
         <NotificationCard notifyData={notifyData}/>
       </Drawer>
